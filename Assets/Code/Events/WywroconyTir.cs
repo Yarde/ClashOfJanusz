@@ -16,8 +16,11 @@ namespace Code.Events
             
             TTL = 1;
             Cooldown = 15;
-            
-            gmo.Harnasie.ForEach(x => x.Hunger += Random.Range(10, 80));
+
+            for (var i = 0; i < gmo.Harnasie.Count; i++)
+            {
+                gmo.RemoveHarnas();
+            }
         }
 
         public override void Remove()

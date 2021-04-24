@@ -5,7 +5,7 @@
         public PowodzTysiaclecia()
         {
             name = "Powodz Tysiaclecia";
-            description = "Kurwa znowu na pola wylało";
+            description = "Kurwa! Apokalipsa!";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -15,14 +15,25 @@
             TTL = 5;
             Cooldown = 15;
 
-            //gmo.Waters.ForEach(x => x.HungerEachTurn = -4);
-            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 6);
+            for (var i = 0; i < gmo.Janusze.Count/4; i++)
+            {
+                gmo.RemoveChmiel();
+            }
+            
+            for (var i = 0; i < gmo.Harnasie.Count/2; i++)
+            {
+                gmo.RemoveChmiel();
+            }
+            
+            for (var i = 0; i < gmo.Chmiele.Count/3; i++)
+            {
+                gmo.RemoveChmiel();
+            }
         }
 
         public override void Remove()
         {
-            //gmo.Waters.ForEach(x => x.HungerEachTurn = -1);
-            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 3);
+
         }
     }
 }

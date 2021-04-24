@@ -17,7 +17,10 @@ namespace Code.Events
             TTL = 1;
             Cooldown = 15;
 
-            gmo.Janusze.ForEach(x => x.Hunger = Random.Range(0, 10));
+            for (var i = 0; i < 2; i++)
+            {
+                gmo.AddJanusz();
+            }
         }
 
         public override void Remove()

@@ -13,7 +13,7 @@
             base.Apply(gameObjectManager);
             
             TTL = 1;
-            Cooldown = 15;
+            Cooldown = 3;
             
             gmo.AddChmiel();
         }

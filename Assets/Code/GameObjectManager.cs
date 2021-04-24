@@ -10,6 +10,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class GameObjectManager : MonoBehaviour
 {
+    [SerializeField] public Canvas canvas;
+    
     [SerializeField] public Janusz janusz;
     [SerializeField] public Harnas harnas;
     [SerializeField] public Chmiel chmiel;
@@ -58,16 +60,13 @@ public class GameObjectManager : MonoBehaviour
             AddJanusz();
         }
 
-        // for (int i = 0; i < 20; i++)
-        // {
-        //     AddHarnas();
-        // }
-
         for (int i = 0; i < 5; i++)
         {
             AddChmiel();
         }
-
+        
+        canvas.gameObject.SetActive(true);
+        
         _inited = true;
     }
 
@@ -94,6 +93,11 @@ public class GameObjectManager : MonoBehaviour
 
     public bool Resolve()
     {
+        if (!_inited)
+        {
+            return false;
+        }
+
         foreach (var e in events)
         {
             e.Update();
@@ -102,73 +106,14 @@ public class GameObjectManager : MonoBehaviour
 
         foreach (var p in Chmiele)
         {
-            if (Random.Range(0.0f, 1.0f) > 0.5f)
+            if (Random.Range(0.0f, 1.0f) > p.ChanceForHarnas)
             {
                 AddHarnas();
             }
         }
 
-        // foreach (var p in Chmiele)
-        // {
-        //     p.Resolve();
-        //     //p.Eat(new List<Entity>(Waters));
-        // }
-
-        // foreach (var h in Harnasie)
-        // {
-        //     h.Resolve();
-        //     h.Eat(new List<Entity>(Chmiele));
-        // }
-
-        // foreach (var c in Janusze)
-        // {
-        //     c.Resolve();
-        //     c.Eat(new List<Entity>(Harnasie));
-        // }
-
-        // foreach (var w in Waters)
-        // {
-        //     w.Resolve();
-        // }
-
-       // UpdateEntities();
-
         Debug.Log($"Janusze: {Janusze.Count} Harnasie: {Harnasie.Count} Chmiele: {Chmiele.Count}");// Waters: {Waters.Count} ");
         return Lost;
-    }
-
-    private void UpdateEntities()
-    {
-        //Chmiele.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
-        //Harnasie.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
-        //Janusze.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
-        //Waters.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
-
-        //Chmiele.RemoveAll(s => s.toKill);
-        //Harnasie.RemoveAll(s => s.toKill);
-        //Janusze.RemoveAll(s => s.toKill);
-        //Waters.RemoveAll(s => s.toKill);
-
-        // Chmiele.FindAll(x => x.toReproduce).ForEach(x =>
-        // {
-        //     AddChmiel();
-        //     //x.Reproduce();
-        // });
-        // Harnasie.FindAll(x => x.toReproduce).ForEach(x =>
-        // {
-        //     AddHarnas();
-        //     x.Reproduce();
-        // });
-        // Janusze.FindAll(x => x.toReproduce).ForEach(x =>
-        // {
-        //     AddJanusz();
-        //     x.Reproduce();
-        // });
-        // Waters.FindAll(x => x.toReproduce && Waters.Count < 100).ForEach(x =>
-        // {
-        //     AddWater();
-        //     x.Reproduce();
-        // });
     }
 
     public void AddJanusz()

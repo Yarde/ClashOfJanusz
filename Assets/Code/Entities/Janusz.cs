@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,16 +12,12 @@ namespace Code.Entities
         public DrunkBar drunkBar;
 
         public float sucharChance;
-        
+
         public override void Setup(Vector3 position)
         {
             base.Setup(position);
 
             poziomNajebania = 70;
-            MaxHunger = 200;
-            HungerEachTurn = 6;
-            HungerOnEat = 100;
-            HungerOnReproduce = 100;
 
             sucharChance = 0.5f;
         }
