@@ -17,12 +17,8 @@ public class GameObjectManager : MonoBehaviour
     public List<Plant> Plants = new List<Plant>();
     public List<Water> Waters = new List<Water>();
 
-    private Random random;
-
     public void Init()
     {
-        random = new Random();
-        
         for (int i = 0; i < 10; i++)
         {
             Carnivores.Add(new Carnivore());
@@ -38,7 +34,7 @@ public class GameObjectManager : MonoBehaviour
             Plants.Add(new Plant());
         }
         
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 100; i++)
         {
             Waters.Add(new Water());
         }

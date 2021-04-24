@@ -4,33 +4,9 @@
     {
         public Water() : base()
         {
-            MaxHunger = 20;
+            MaxHunger = 200;
             HungerEachTurn = -1;
-        }
-        
-        public override void Resolve()
-        {
-            base.Resolve();
-            
-            if (Hunger > MaxHunger)
-            {
-                toKill = true;
-            }
-            
-            if (Hunger < 0)
-            {
-                toReproduce = true;
-            }
-        }
-        
-        public override void Reproduce()
-        {
-            if (toReproduce)
-            {
-                base.Reproduce();
-            
-                Hunger += 10;
-            }
+            HungerOnReproduce = 100;
         }
     }
 }

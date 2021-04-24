@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor.VersionControl;
+using UnityEngine;
 
 namespace Code.Entities
 {
@@ -10,9 +10,9 @@ namespace Code.Entities
         public int MaxHunger;
         public int HungerEachTurn;
         public int HungerOnEat;
+        public int HungerOnReproduce;
         public bool toKill;
         public bool toReproduce;
-        private Random random = new Random();
 
         public Entity()
         {
@@ -24,23 +24,41 @@ namespace Code.Entities
         public virtual void Resolve()
         {
             Hunger += HungerEachTurn;
+            
+            if (Hunger > MaxHunger)
+            {
+                toKill = true;
+            }
+            
+            if (Hunger < 0)
+            {
+                toReproduce = true;
+                Hunger = 0;
+            }
         }
 
         public virtual void Reproduce()
         {
-            toReproduce = false;
+            if (toReproduce)
+            {
+                toReproduce = false;
+                Hunger += HungerOnReproduce;
+            }
         }
 
         public virtual void Eat(List<Entity> entities)
         {
-            if (Hunger/(float)MaxHunger < random.NextDouble())
+            var a = Hunger / (float) MaxHunger;
+            var b = Random.Range(0.4f, 0.8f);
+
+            if (a<b)
             {
                 return;
             }
             
             if (!toKill && !toReproduce && entities.Count > 0)
             {
-                int index = random.Next(entities.Count);
+                int index = Random.Range(0, entities.Count);
 
                 entities[index].toKill = true;
                 

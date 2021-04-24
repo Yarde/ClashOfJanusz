@@ -6,34 +6,10 @@ namespace Code.Entities
     {
         public Carnivore() : base()
         {
-            MaxHunger = 20;
+            MaxHunger = 200;
             HungerEachTurn = 2;
-            HungerOnEat = 10;
-        }
-        
-        public override void Resolve()
-        {
-            base.Resolve();
-            
-            if (Hunger > MaxHunger)
-            {
-                toKill = true;
-            }
-            
-            if (Hunger < 0)
-            {
-                toReproduce = true;
-            }
-        }
-
-        public override void Reproduce()
-        {
-            if (toReproduce)
-            {
-                base.Reproduce();
-            
-                Hunger += 10;
-            }
+            HungerOnEat = 100;
+            HungerOnReproduce = 100;
         }
     }
 }

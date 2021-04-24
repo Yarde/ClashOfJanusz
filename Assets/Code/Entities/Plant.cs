@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Entities
 {
@@ -7,41 +9,18 @@ namespace Code.Entities
     {
         public Plant() : base()
         {
-            MaxHunger = 10;
+            MaxHunger = 100;
             HungerEachTurn = 3;
-            HungerOnEat = 4;
-        }
-        
-        public override void Resolve()
-        {
-            base.Resolve();
-            
-            if (Hunger > MaxHunger)
-            {
-                toKill = true;
-            }
-            
-            if (Hunger < 0)
-            {
-                toReproduce = true;
-            }
-        }
-        
-        public override void Reproduce()
-        {
-            if (toReproduce)
-            {
-                base.Reproduce();
-            
-                Hunger += 5;
-            }
+            HungerOnEat = 20;
+            HungerOnReproduce = 50;
         }
 
         public override void Eat(List<Entity> waters)
         {
-            var random = new Random();
+            var a = Hunger / (float) MaxHunger;
+            var b = Random.Range(0.1f, 0.5f);
             
-            if (Hunger/(float)MaxHunger < random.NextDouble())
+            if (a<b)
             {
                 return;
             }
@@ -49,9 +28,9 @@ namespace Code.Entities
             if (!toKill && !toReproduce && waters.Count > 0)
             {
                 
-                int index = random.Next(waters.Count);
+                int index = Random.Range(0, waters.Count);
 
-                waters[index].Hunger += 6;
+                waters[index].Hunger += 20;
 
                 Hunger -= HungerOnEat;
             }
