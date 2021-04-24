@@ -6,6 +6,8 @@ namespace Code.Entities
     {
         public override void Setup()
         {
+            base.Setup();
+            
             MaxHunger = 200;
             HungerEachTurn = 2;
             HungerOnEat = 100;

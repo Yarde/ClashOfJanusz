@@ -16,7 +16,7 @@ namespace Code.Entities
 
         public virtual void Setup()
         {
-            transform.position = new Vector3(Random.Range(0.0f, 100.0f), 0, Random.Range(0.0f, 100.0f));
+            transform.position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(5.0f, 15.0f));
             
             Hunger = 0;
             toKill = false;
