@@ -1,10 +1,10 @@
 ﻿namespace Code.Events
 {
-    public class FestiwalPiwa : Event
+    public class BoostSucharow : Event
     {
-        public FestiwalPiwa()
+        public BoostSucharow()
         {
-            name = "Festiwal Piwa";
+            name = "Komplement";
             description = "Produkcja Harnasia wystrzeliła w kosmos";
         }
         
@@ -12,22 +12,19 @@
         {
             base.Apply(gameObjectManager);
             
-            TTL = 5;
+            TTL = 7;
             Cooldown = 15;
             
             for (var i = 0; i < 5; i++)
             {
-                gmo.AddHerbivore();
+                gmo.AddHarnas();
             }
-            
-            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 8);
-            //gmo.Harnasie.ForEach(x => x.HungerOnEat = 140);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.8f);
         }
 
         public override void Remove()
         {
-            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 3);
-            //gmo.Harnasie.ForEach(x => x.HungerOnEat = 140);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.5f);
         }
     }
 }

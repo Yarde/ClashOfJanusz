@@ -13,14 +13,27 @@ namespace UI
         [SerializeField] public Button button;
         [SerializeField] public TMP_Text buttonText;
 
+        [SerializeField] private Game game;
+
         private void Start()
+        {
+            button.onClick.AddListener(() => gameObject.SetActive(false));
+        }
+
+        public void Close()
         {
             button.onClick.AddListener(() => gameObject.SetActive(false));
         }
 
         public void TryAgain()
         {
-            SceneManager.LoadScene(1);
+            game.Reset();
+        }
+
+        public void SetupPayment()
+        {
+            buttonText.text = "19,99 PLN";
+            button.onClick.AddListener(() => game.gameObjectManager.Coins += 10);
         }
     }
 }

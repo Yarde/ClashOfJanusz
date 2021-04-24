@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Code.Entities;
 using UnityEngine;
@@ -24,27 +25,49 @@ public class GameObjectManager : MonoBehaviour
     //public List<Water> Waters = new List<Water>();
 
     public List<Event> events = new List<Event>();
+    private Boolean _inited = false;
     public bool Lost => Janusze.Count == 0 && Harnasie.Count == 0 && Chmiele.Count == 0;
     public int Points => Janusze.Count * 3 + Harnasie.Count * 2 + Chmiele.Count;
 
+    public int Coins { get; set; }
+
     private System.Random _random = new System.Random();
+
+    public void Reset()
+    {
+        Chmiele.ForEach(x => Destroy(x.gameObject));
+        Harnasie.ForEach(x => Destroy(x.gameObject));
+        Janusze.ForEach(x => Destroy(x.gameObject));
+        
+        Janusze.Clear();
+        Harnasie.Clear();
+        Chmiele.Clear();
+    }
 
     public void Init()
     {
+        if (_inited || transform.localScale.x < 1)
+        {
+            return;;
+        }
+        Coins = 10;
+        
         for (int i = 0; i < 5; i++)
         {
-            AddCarnivore();
+            AddJanusz();
         }
 
         // for (int i = 0; i < 20; i++)
         // {
-        //     AddHerbivore();
+        //     AddHarnas();
         // }
 
         for (int i = 0; i < 5; i++)
         {
-            AddPlant();
+            AddChmiel();
         }
+
+        _inited = true;
     }
 
     private Vector3 RandomPointInBoundsList(List<Transform> bounds)
@@ -80,7 +103,7 @@ public class GameObjectManager : MonoBehaviour
         {
             if (Random.Range(0.0f, 1.0f) > 0.5f)
             {
-                AddHerbivore();
+                AddHarnas();
             }
         }
 
@@ -127,17 +150,17 @@ public class GameObjectManager : MonoBehaviour
 
         // Chmiele.FindAll(x => x.toReproduce).ForEach(x =>
         // {
-        //     AddPlant();
+        //     AddChmiel();
         //     //x.Reproduce();
         // });
         // Harnasie.FindAll(x => x.toReproduce).ForEach(x =>
         // {
-        //     AddHerbivore();
+        //     AddHarnas();
         //     x.Reproduce();
         // });
         // Janusze.FindAll(x => x.toReproduce).ForEach(x =>
         // {
-        //     AddCarnivore();
+        //     AddJanusz();
         //     x.Reproduce();
         // });
         // Waters.FindAll(x => x.toReproduce && Waters.Count < 100).ForEach(x =>
@@ -147,7 +170,7 @@ public class GameObjectManager : MonoBehaviour
         // });
     }
 
-    public void AddCarnivore()
+    public void AddJanusz()
     {
         var c = Instantiate(janusz, transform);
         c.Setup(RandomPointInBounds(januszSpawner));
@@ -155,14 +178,14 @@ public class GameObjectManager : MonoBehaviour
         Janusze.Add(c);
     }
 
-    public void AddHerbivore()
+    public void AddHarnas()
     {
         var c = Instantiate(harnas, transform);
         c.Setup(RandomPointInBounds(harnasSpawner));
         Harnasie.Add(c);
     }
 
-    public void AddPlant()
+    public void AddChmiel()
     {
         var c = Instantiate(chmiel, transform);
         c.Setup(RandomPointInBoundsList(chmielSpawners));
@@ -176,9 +199,21 @@ public class GameObjectManager : MonoBehaviour
     //     Waters.Add(c);
     // }
 
-    public void RemoveCarnivore()
+    public void RemoveJanusz()
     {
         var index = Random.Range(0, Janusze.Count);
         Janusze.RemoveAt(index);
+    }
+    
+    public void RemoveHarnas()
+    {
+        var index = Random.Range(0, Harnasie.Count);
+        Harnasie.RemoveAt(index);
+    }
+    
+    public void RemoveChmiel()
+    {
+        var index = Random.Range(0, Chmiele.Count);
+        Chmiele.RemoveAt(index);
     }
 }

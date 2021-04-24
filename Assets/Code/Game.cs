@@ -34,15 +34,11 @@ public class Game : MonoBehaviour
     
     void Start()
     {
-        gameObjectManager.Init();
-        
-        // setup event buttons
-        eventButtons[0].ev = new OkresGodowy();
-        eventButtons[1].ev = new FestiwalPiwa();
-        eventButtons[2].ev = new Koronawirus();
-        eventButtons[3].ev = new PowodzTysiaclecia();
-        
-        
+        coins = 10;
+
+        eventButtons[0].ev = new BoostSucharow();
+        eventButtons[1].ev = new NowyChmiel();
+        eventButtons[2].ev = new NowyJanusz();
 
         for (var i = 0; i < eventButtons.Length; i++)
         {
@@ -62,10 +58,12 @@ public class Game : MonoBehaviour
         events.Add(new PogromJanuszy());
 
         timeStart = Time.realtimeSinceStartup;
+        nextUpdate = Mathf.FloorToInt(Time.time);
     }
     
     void Update()
     {
+        gameObjectManager.Init();
         if (Time.time >= nextUpdate)
         {
             nextUpdate = Mathf.FloorToInt(Time.time) + 1;
@@ -73,22 +71,12 @@ public class Game : MonoBehaviour
             
             var time = Time.realtimeSinceStartup - timeStart;
             timer.text = $"Czas: {GetTime(time)}";
-            
-            if (gameObjectManager.Lost)
-            {
-                popup.gameObject.SetActive(true);
-                popup.text.text = "Przegrałeś";
-                popup.description.text = $"Przetrwałes {GetTime(time)}";
-                popup.buttonText.text = "Jeszcze raz?";
-                popup.button.onClick.AddListener(popup.TryAgain);
-                nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
-            }
 
-            if (time > 300)
+            if (gameObjectManager.Janusze.Count >= 30)
             {
                 popup.gameObject.SetActive(true);
                 popup.text.text = "Wygrałeś!";
-                popup.description.text = $"Zdobyłeś {gameObjectManager.Points} punktów";
+                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(time)}";
                 popup.buttonText.text = "Jeszcze raz?";
                 popup.button.onClick.AddListener(popup.TryAgain);
                 nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
@@ -117,10 +105,9 @@ public class Game : MonoBehaviour
 
         stats.text = $"Janusze: {gameObjectManager.Janusze.Count} " +
                      $"Harnasie: {gameObjectManager.Harnasie.Count} " +
-                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";// +
-                     //$"Woda: {gameObjectManager.Waters.Count} ";
+                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";
 
-        coinText.text = $"Gold: {coins}";
+        coinText.text = $"{gameObjectManager.Coins}";
 
         if (chanceForEvent > Random.Range(20, 100))
         {
@@ -130,7 +117,7 @@ public class Game : MonoBehaviour
             int index = Random.Range(0, active.Count);
 
             var ev = active[index];
-            ApplyEvent(ev);
+            ApplyEvent(ev, true);
         }
         else
         {
@@ -151,7 +138,7 @@ public class Game : MonoBehaviour
             if (b.ev.Cooldown <= 0)
             {
                 b.button.enabled = true;
-                b.buttonText.text = b.ev.name;
+                b.buttonText.text = "";
             }
             else
             {
@@ -162,30 +149,35 @@ public class Game : MonoBehaviour
 
     void ApplyEvent(EventButton b)
     {
-        if (coins < b.price)
+        if (gameObjectManager.Coins < b.price)
         {
             popup.gameObject.SetActive(true);
             popup.text.text = "Za mało cebuli!";
             popup.description.text = "Kup więcej cebuli w sklepie lub poczekaj 60 minut";
+            popup.SetupPayment();
             infoTime = 3;
             return;
         }
         
-        coins -= b.price;
+        gameObjectManager.Coins -= b.price;
         b.button.enabled = false;
         b.buttonText.text = b.ev.Cooldown.ToString();
-        ApplyEvent(b.ev);
+        ApplyEvent(b.ev, false);
     }
 
-    void ApplyEvent(Event ev)
+    void ApplyEvent(Event ev, bool showPopup)
     {
         ev.Apply(gameObjectManager);
         gameObjectManager.events.Add(ev);
-        
-        popup.gameObject.SetActive(true);
-        popup.text.text = ev.name;
-        popup.description.text = ev.description;
-        infoTime = 5;
+
+        if (showPopup)
+        {
+            popup.Close();
+            popup.gameObject.SetActive(true);
+            popup.text.text = ev.name;
+            popup.description.text = ev.description;
+            infoTime = 5;
+        }
     }
     
     [Serializable]
@@ -196,5 +188,11 @@ public class Game : MonoBehaviour
         public Event ev;
         public Button button;
         public TMP_Text buttonText;
+    }
+
+    public void Reset()
+    {
+        gameObjectManager.Reset();
+        Start();
     }
 }

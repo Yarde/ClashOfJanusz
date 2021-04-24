@@ -2,25 +2,22 @@
 
 namespace Code.Events
 {
-    public class PogromJanuszy : Event
+    public class NowyJanusz : Event
     {
-        public PogromJanuszy()
+        public NowyJanusz()
         {
-            name = "Pogrom Januszy";
-            description = "Tydzień Somsiada, populacja Januszy zmniejsza się";
+            name = "Nowe życie";
+            description = "Pieter mój synu!";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
         {
             base.Apply(gameObjectManager);
             
-            TTL = 5;
+            TTL = 1;
             Cooldown = 15;
             
-            for (var i = 0; i < 5; i++)
-            {
-                gmo.RemoveJanusz();
-            }
+            gmo.AddJanusz();
         }
 
         public override void Remove()

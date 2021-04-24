@@ -53,6 +53,8 @@ MonoBehaviour:
   HungerOnReproduce: 0
   toKill: 0
   toReproduce: 0
+  poziomNajebania: 0
+  sucharChance: 0
 --- !u!114 &5599387948295258395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   min: 0.8
   max: 1.2
-  jellyTime: 0.5
+  jellyTimeRange: {x: 0.7, y: 0.9}
+  _jellyTime: 0
 --- !u!114 &-2608182239733461986
 MonoBehaviour:
   m_ObjectHideFlags: 0

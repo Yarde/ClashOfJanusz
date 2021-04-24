@@ -7,6 +7,8 @@ namespace Code.Entities
     {
         public int poziomNajebania;
         private GameObjectManager gmo;
+
+        public float sucharChance;
         
         public override void Setup(Vector3 position)
         {
@@ -17,6 +19,8 @@ namespace Code.Entities
             HungerEachTurn = 6;
             HungerOnEat = 100;
             HungerOnReproduce = 100;
+
+            sucharChance = 0.5f;
         }
 
         public void SetDependencies(GameObjectManager _gmo)
@@ -30,7 +34,8 @@ namespace Code.Entities
 
             if (poziomNajebania >= 60)
             {
-                gmo.AddHerbivore();
+                if (Random.Range(0.0f, 1.0f) > sucharChance)
+                    gmo.Coins += 1;
             }
         }
 
