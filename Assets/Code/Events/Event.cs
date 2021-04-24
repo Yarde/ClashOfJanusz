@@ -1,8 +1,12 @@
-﻿namespace Code.Events
+﻿using System;
+
+namespace Code.Events
 {
+    [Serializable]
     public abstract class Event
     {
         public int TTL;
+        public int Cooldown;
 
         public GameObjectManager gmo;
 
@@ -15,6 +19,7 @@
         public void Update()
         {
             TTL--;
+            Cooldown--;
             
             if (TTL == 0)
             {

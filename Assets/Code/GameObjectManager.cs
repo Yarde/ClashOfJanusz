@@ -60,7 +60,7 @@ public class GameObjectManager : MonoBehaviour
         {
             e.Update();
         }
-        events.RemoveAll(s => s.TTL <= 0);
+        events.RemoveAll(s => s.TTL <= 0 && s.Cooldown <= 0);
         
         foreach (var p in Plants)
         {
@@ -92,6 +92,11 @@ public class GameObjectManager : MonoBehaviour
 
     private void UpdateEntities()
     {
+        Plants.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
+        Herbivores.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
+        Carnivores.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
+        Waters.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
+        
         Plants.RemoveAll(s => s.toKill);
         Herbivores.RemoveAll(s => s.toKill);
         Carnivores.RemoveAll(s => s.toKill);

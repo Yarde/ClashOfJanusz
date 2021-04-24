@@ -7,6 +7,7 @@
             base.Apply(gameObjectManager);
             
             TTL = 7;
+            Cooldown = 20;
             
             gmo.Carnivores.ForEach(x => x.HungerEachTurn = 0);
         }
