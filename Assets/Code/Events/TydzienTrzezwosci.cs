@@ -5,7 +5,7 @@
         public TydzienTrzezwosci()
         {
             name = "Tydzien Trzeźwości";
-            description = "Janusz, zostaw to piwo!";
+            description = "Janusz, zostaw to piwo i  skończ z tymi sucharami!";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -14,13 +14,13 @@
             
             TTL = 7;
             Cooldown = 20;
-            
-            gmo.Janusze.ForEach(x => x.HungerEachTurn = 0);
+
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.5f);
         }
 
         public override void Remove()
         {
-            gmo.Janusze.ForEach(x => x.HungerEachTurn = 2);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0);
         }
     }
 }

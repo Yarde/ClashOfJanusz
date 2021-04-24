@@ -15,6 +15,10 @@ namespace UI
 
         [SerializeField] private Game game;
 
+        private int coins = 20;
+        private string t = "19,99 PLN";
+        private string d = "Kup więcej w sklepie lub poczekaj 60 minut";
+
         private void Start()
         {
             button.onClick.AddListener(() => gameObject.SetActive(false));
@@ -22,6 +26,7 @@ namespace UI
 
         public void Close()
         {
+            buttonText.text = "OK";
             button.onClick.AddListener(() => gameObject.SetActive(false));
         }
 
@@ -32,8 +37,12 @@ namespace UI
 
         public void SetupPayment()
         {
-            buttonText.text = "19,99 PLN";
-            button.onClick.AddListener(() => game.gameObjectManager.Coins += 10);
+            buttonText.text = t;
+            description.text = d;
+            button.onClick.AddListener(() => game.gameObjectManager.Coins += coins);
+            coins = 0;
+            t = "OK";
+            d = "Limit kupionych ofert przekroczony";
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEngine;
 
 namespace Code.Events
 {
@@ -17,12 +18,17 @@ namespace Code.Events
             TTL = 7;
             Cooldown = 20;
             
-            gmo.Janusze.ForEach(x => x.HungerEachTurn = 4);
+            for (var i = 0; i < gmo.Harnasie.Count; i++)
+            {
+                gmo.RemoveHarnas();
+            }
+            
+            gmo.Chmiele.ForEach(x => x.ChanceForHarnas += Random.Range(0.3f, 0.5f));
         }
 
         public override void Remove()
         {
-            gmo.Janusze.ForEach(x => x.HungerEachTurn = 2);
+            gmo.Chmiele.ForEach(x => x.ChanceForHarnas = 0.3f);
         }
     }
 }

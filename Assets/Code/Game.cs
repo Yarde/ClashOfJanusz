@@ -64,6 +64,7 @@ public class Game : MonoBehaviour
     void Update()
     {
         gameObjectManager.Init();
+        
         if (Time.time >= nextUpdate)
         {
             nextUpdate = Mathf.FloorToInt(Time.time) + 1;
@@ -152,17 +153,17 @@ public class Game : MonoBehaviour
         if (gameObjectManager.Coins < b.price)
         {
             popup.gameObject.SetActive(true);
-            popup.text.text = "Za mało cebuli!";
-            popup.description.text = "Kup więcej cebuli w sklepie lub poczekaj 60 minut";
+            popup.text.text = "Za mało kapsli!";
+            popup.description.text = "Kup więcej w sklepie lub poczekaj 60 minut";
             popup.SetupPayment();
-            infoTime = 3;
+            infoTime = 10;
             return;
         }
         
         gameObjectManager.Coins -= b.price;
         b.button.enabled = false;
-        b.buttonText.text = b.ev.Cooldown.ToString();
         ApplyEvent(b.ev, false);
+        b.buttonText.text = b.ev.Cooldown.ToString();
     }
 
     void ApplyEvent(Event ev, bool showPopup)
@@ -176,7 +177,7 @@ public class Game : MonoBehaviour
             popup.gameObject.SetActive(true);
             popup.text.text = ev.name;
             popup.description.text = ev.description;
-            infoTime = 5;
+            infoTime = 10;
         }
     }
     

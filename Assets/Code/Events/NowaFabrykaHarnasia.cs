@@ -7,22 +7,22 @@ namespace Code.Events
         public NowaFabrykaHarnasia()
         {
             name = "Nowa Fabryka Harnasia";
-            description = "Popyt rodzi podaż";
+            description = "Produkcja na maksa, fabryka wytrzyma!";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
         {
             base.Apply(gameObjectManager);
             
-            TTL = 1;
+            TTL = 5;
             Cooldown = 15;
             
-            gmo.Harnasie.ForEach(x => x.Hunger = Random.Range(0, 10));
+            gmo.Chmiele.ForEach(x => x.ChanceForHarnas += Random.Range(0.1f, 0.4f));
         }
 
         public override void Remove()
         {
-            
+            gmo.Chmiele.ForEach(x => x.ChanceForHarnas = 0.3f);
         }
     }
 }

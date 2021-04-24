@@ -15,10 +15,6 @@ namespace Code.Entities
             base.Setup(position);
 
             poziomNajebania = 0;
-            MaxHunger = 200;
-            HungerEachTurn = 6;
-            HungerOnEat = 100;
-            HungerOnReproduce = 100;
 
             sucharChance = 0.5f;
         }

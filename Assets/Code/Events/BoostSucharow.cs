@@ -13,7 +13,7 @@
             base.Apply(gameObjectManager);
             
             TTL = 7;
-            Cooldown = 15;
+            Cooldown = 7;
             
             for (var i = 0; i < 5; i++)
             {
