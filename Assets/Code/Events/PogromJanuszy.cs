@@ -19,7 +19,7 @@ namespace Code.Events
             
             for (var i = 0; i < 5; i++)
             {
-                gmo.RemoveCarnivore();
+                gmo.RemoveJanusz();
             }
         }
 

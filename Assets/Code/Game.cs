@@ -34,15 +34,14 @@ public class Game : MonoBehaviour
     
     void Start()
     {
+        coins = 10;
+        
         gameObjectManager.Init();
 
         // setup event buttons
-        eventButtons[0].ev = new OkresGodowy();
-        eventButtons[1].ev = new FestiwalPiwa();
-        eventButtons[2].ev = new Koronawirus();
-        eventButtons[3].ev = new PowodzTysiaclecia();
-        
-        
+        eventButtons[0].ev = new NowyJanusz();
+        eventButtons[1].ev = new BoostSucharow();
+        eventButtons[2].ev = new NowyChmiel();
 
         for (var i = 0; i < eventButtons.Length; i++)
         {
@@ -108,10 +107,9 @@ public class Game : MonoBehaviour
 
         stats.text = $"Janusze: {gameObjectManager.Janusze.Count} " +
                      $"Harnasie: {gameObjectManager.Harnasie.Count} " +
-                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";// +
-                     //$"Woda: {gameObjectManager.Waters.Count} ";
+                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";
 
-        coinText.text = $"Gold: {gameObjectManager.Coins}";
+        coinText.text = $"{gameObjectManager.Coins}";
 
         if (chanceForEvent > Random.Range(20, 100))
         {
@@ -121,7 +119,7 @@ public class Game : MonoBehaviour
             int index = Random.Range(0, active.Count);
 
             var ev = active[index];
-            ApplyEvent(ev);
+            ApplyEvent(ev, true);
         }
         else
         {
@@ -165,18 +163,21 @@ public class Game : MonoBehaviour
         gameObjectManager.Coins -= b.price;
         b.button.enabled = false;
         b.buttonText.text = b.ev.Cooldown.ToString();
-        ApplyEvent(b.ev);
+        ApplyEvent(b.ev, false);
     }
 
-    void ApplyEvent(Event ev)
+    void ApplyEvent(Event ev, bool showPopup)
     {
         ev.Apply(gameObjectManager);
         gameObjectManager.events.Add(ev);
-        
-        popup.gameObject.SetActive(true);
-        popup.text.text = ev.name;
-        popup.description.text = ev.description;
-        infoTime = 5;
+
+        if (showPopup)
+        {
+            popup.gameObject.SetActive(true);
+            popup.text.text = ev.name;
+            popup.description.text = ev.description;
+            infoTime = 5;
+        }
     }
     
     [Serializable]
