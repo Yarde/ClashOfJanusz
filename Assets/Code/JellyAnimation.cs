@@ -7,14 +7,15 @@ using UnityEngine;
 public class JellyAnimation : MonoBehaviour
 {
 
-    public float min = 0.8f;
-    public float max = 1.2f;
+    public float min = 0.08f;
+    public float max = 0.12f;
     public Vector2 jellyTimeRange;
 
     public float _jellyTime;
     
     private Vector3 _desiredScale;
     private float _swapTime;
+    public Transform avatarTransform;
     
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,7 @@ public class JellyAnimation : MonoBehaviour
         }
         else
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, _desiredScale, (Time.time - _swapTime)/_jellyTime);
+            avatarTransform.localScale = Vector3.Lerp(avatarTransform.localScale, _desiredScale, (Time.time - _swapTime)/_jellyTime);
         }
     }
 }

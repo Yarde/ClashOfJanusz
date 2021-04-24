@@ -18,6 +18,7 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Transform januszWalkYard;
     [SerializeField] public List<Transform> chmielSpawners;
     [SerializeField] public Transform harnasSpawner;
+    [SerializeField] public Camera camera;
 
     public List<Janusz> Janusze = new List<Janusz>();
     public List<Harnas> Harnasie = new List<Harnas>();
@@ -48,7 +49,7 @@ public class GameObjectManager : MonoBehaviour
     {
         if (_inited || transform.localScale.x < 1)
         {
-            return;;
+            return;
         }
         Coins = 10;
         
@@ -208,6 +209,8 @@ public class GameObjectManager : MonoBehaviour
     public void RemoveHarnas()
     {
         var index = Random.Range(0, Harnasie.Count);
+        var harnasToDespawn = Harnasie[index];
+        Destroy(harnasToDespawn.gameObject);
         Harnasie.RemoveAt(index);
     }
     
@@ -215,5 +218,32 @@ public class GameObjectManager : MonoBehaviour
     {
         var index = Random.Range(0, Chmiele.Count);
         Chmiele.RemoveAt(index);
+    }
+
+    public Boolean TakeHarnas()
+    {
+        if (Harnasie.Count > 0)
+        {
+            RemoveHarnas();
+            return true;
+        }
+        return false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0)) {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+            if (hit.collider != null)
+            {
+                var janusz = hit.collider.gameObject.GetComponent<Janusz>();
+                if (janusz != null)
+                {
+                    janusz.OnClick();
+                }
+            }
+        }
     }
 }

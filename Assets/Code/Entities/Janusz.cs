@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Entities
 {
     public class Janusz : Entity
     {
-        public int poziomNajebania;
+        public float poziomNajebania;
         private GameObjectManager gmo;
+        public DrunkBar drunkBar;
 
         public float sucharChance;
         
@@ -14,7 +17,7 @@ namespace Code.Entities
         {
             base.Setup(position);
 
-            poziomNajebania = 0;
+            poziomNajebania = 70;
             MaxHunger = 200;
             HungerEachTurn = 6;
             HungerOnEat = 100;
@@ -39,9 +42,19 @@ namespace Code.Entities
             }
         }
 
+        private void Update()
+        {
+            poziomNajebania -= Time.deltaTime * 3;
+            drunkBar.level = poziomNajebania;
+        }
+
         public void OnClick()
         {
-            poziomNajebania += 50;
+            if (gmo.TakeHarnas())
+            {
+                poziomNajebania += 50;
+                poziomNajebania = Math.Min(poziomNajebania, 100);
+            }
         }
     }
 }
