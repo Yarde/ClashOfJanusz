@@ -38,10 +38,9 @@ public class Game : MonoBehaviour
         
         gameObjectManager.Init();
 
-        // setup event buttons
-        eventButtons[0].ev = new NowyJanusz();
-        eventButtons[1].ev = new BoostSucharow();
-        eventButtons[2].ev = new NowyChmiel();
+        eventButtons[0].ev = new BoostSucharow();
+        eventButtons[1].ev = new NowyChmiel();
+        eventButtons[2].ev = new NowyJanusz();
 
         for (var i = 0; i < eventButtons.Length; i++)
         {
@@ -140,7 +139,7 @@ public class Game : MonoBehaviour
             if (b.ev.Cooldown <= 0)
             {
                 b.button.enabled = true;
-                b.buttonText.text = b.ev.name;
+                b.buttonText.text = "";
             }
             else
             {
@@ -156,6 +155,7 @@ public class Game : MonoBehaviour
             popup.gameObject.SetActive(true);
             popup.text.text = "Za mało cebuli!";
             popup.description.text = "Kup więcej cebuli w sklepie lub poczekaj 60 minut";
+            popup.SetupPayment();
             infoTime = 3;
             return;
         }
@@ -173,6 +173,7 @@ public class Game : MonoBehaviour
 
         if (showPopup)
         {
+            popup.Close();
             popup.gameObject.SetActive(true);
             popup.text.text = ev.name;
             popup.description.text = ev.description;

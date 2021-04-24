@@ -20,9 +20,20 @@ namespace UI
             button.onClick.AddListener(() => gameObject.SetActive(false));
         }
 
+        public void Close()
+        {
+            button.onClick.AddListener(() => gameObject.SetActive(false));
+        }
+
         public void TryAgain()
         {
             game.Reset();
+        }
+
+        public void SetupPayment()
+        {
+            buttonText.text = "19,99 PLN";
+            button.onClick.AddListener(() => game.gameObjectManager.Coins += 10);
         }
     }
 }
