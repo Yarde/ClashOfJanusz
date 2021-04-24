@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Code.Entities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Event = Code.Events.Event;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
@@ -12,14 +13,16 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Harnas harnas;
     [SerializeField] public Chmiel chmiel;
     [SerializeField] public Water woda;
-    [SerializeField] public Transform januszBounds;
+    [SerializeField] public Transform januszSpawner;
+    [SerializeField] public Transform januszWalkYard;
     [SerializeField] public List<Transform> chmielSpawners;
+    [SerializeField] public Transform harnasSpawner;
 
     public List<Janusz> Janusze = new List<Janusz>();
     public List<Harnas> Harnasie = new List<Harnas>();
     public List<Chmiel> Chmiele = new List<Chmiel>();
     //public List<Water> Waters = new List<Water>();
-    
+
     public List<Event> events = new List<Event>();
     public bool Lost => Janusze.Count == 0 && Harnasie.Count == 0 && Chmiele.Count == 0;
     public int Points => Janusze.Count * 3 + Harnasie.Count * 2 + Chmiele.Count;
@@ -47,28 +50,23 @@ public class GameObjectManager : MonoBehaviour
         {
             AddCarnivore();
         }
-        
+
         // for (int i = 0; i < 20; i++)
         // {
         //     AddHerbivore();
         // }
-        
+
         for (int i = 0; i < 5; i++)
         {
             AddPlant();
         }
-        
-        // for (int i = 0; i < 100; i++)
-        // {
-        //     AddWater();
-        // }
     }
-    
+
     private Vector3 RandomPointInBoundsList(List<Transform> bounds)
     {
         return RandomPointInBounds(bounds[_random.Next(bounds.Count)]);
     }
-    
+
     public static Vector3 RandomPointInBounds(Transform bounds)
     {
         Vector2 location = Random.insideUnitCircle;
@@ -81,7 +79,7 @@ public class GameObjectManager : MonoBehaviour
 
     public Vector3 RandomJanuszWanderPoint()
     {
-        return RandomPointInBounds(januszBounds);
+        return RandomPointInBounds(januszWalkYard);
     }
 
 
@@ -92,7 +90,7 @@ public class GameObjectManager : MonoBehaviour
             e.Update();
         }
         events.RemoveAll(s => s.TTL <= 0 && s.Cooldown <= 0);
-        
+
         foreach (var p in Chmiele)
         {
             if (Random.Range(0.0f, 1.0f) > 0.5f)
@@ -100,7 +98,7 @@ public class GameObjectManager : MonoBehaviour
                 AddHerbivore();
             }
         }
-        
+
         // foreach (var p in Chmiele)
         // {
         //     p.Resolve();
@@ -136,7 +134,7 @@ public class GameObjectManager : MonoBehaviour
         //Harnasie.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
         //Janusze.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
         //Waters.FindAll(x => x.toKill).ForEach(x => Destroy(x.gameObject));
-        
+
         //Chmiele.RemoveAll(s => s.toKill);
         //Harnasie.RemoveAll(s => s.toKill);
         //Janusze.RemoveAll(s => s.toKill);
@@ -167,25 +165,25 @@ public class GameObjectManager : MonoBehaviour
     public void AddCarnivore()
     {
         var c = Instantiate(janusz, transform);
-        c.Setup(RandomPointInBounds(januszBounds));
+        c.Setup(RandomPointInBounds(januszSpawner));
         c.SetDependencies(this);
         Janusze.Add(c);
     }
-    
+
     public void AddHerbivore()
     {
         var c = Instantiate(harnas, transform);
-        c.Setup(RandomPointInBounds(januszBounds));
+        c.Setup(RandomPointInBounds(harnasSpawner));
         Harnasie.Add(c);
     }
-    
+
     public void AddPlant()
     {
         var c = Instantiate(chmiel, transform);
         c.Setup(RandomPointInBoundsList(chmielSpawners));
         Chmiele.Add(c);
     }
-    
+
     // public void AddWater()
     // {
     //     var c = Instantiate(woda, transform);
