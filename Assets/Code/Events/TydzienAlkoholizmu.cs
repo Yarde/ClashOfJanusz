@@ -17,12 +17,12 @@ namespace Code.Events
             TTL = 7;
             Cooldown = 20;
             
-            gmo.Carnivores.ForEach(x => x.HungerEachTurn = 4);
+            gmo.Janusze.ForEach(x => x.HungerEachTurn = 4);
         }
 
         public override void Remove()
         {
-            gmo.Carnivores.ForEach(x => x.HungerEachTurn = 2);
+            gmo.Janusze.ForEach(x => x.HungerEachTurn = 2);
         }
     }
 }

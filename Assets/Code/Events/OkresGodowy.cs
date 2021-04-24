@@ -22,15 +22,15 @@ namespace Code.Events
                 gmo.AddCarnivore();
             }
             
-            //gmo.Carnivores.ForEach(x => x.HungerOnEat = 150);
-            //gmo.Carnivores.ForEach(x => x.Hunger -= Random.Range(10, 60));
-            gmo.Herbivores.ForEach(x => x.HungerEachTurn = 6);
+            //gmo.Janusze.ForEach(x => x.HungerOnEat = 150);
+            //gmo.Janusze.ForEach(x => x.Hunger -= Random.Range(10, 60));
+            gmo.Harnasie.ForEach(x => x.HungerEachTurn = 6);
         }
 
         public override void Remove()
         {
-            //gmo.Carnivores.ForEach(x => x.HungerOnEat = 100);
-            gmo.Herbivores.ForEach(x => x.HungerEachTurn = 3);
+            //gmo.Janusze.ForEach(x => x.HungerOnEat = 100);
+            gmo.Harnasie.ForEach(x => x.HungerEachTurn = 3);
         }
     }
 }

@@ -59,6 +59,7 @@ public class Game : MonoBehaviour
         events.Add(new WywroconyTir());
         events.Add(new TydzienAlkoholizmu());
         events.Add(new TydzienTrzezwosci());
+        events.Add(new PogromJanuszy());
 
         timeStart = Time.realtimeSinceStartup;
     }
@@ -114,14 +115,14 @@ public class Game : MonoBehaviour
             return;
         }
 
-        stats.text = $"Janusze: {gameObjectManager.Carnivores.Count} " +
-                     $"Harnasie: {gameObjectManager.Herbivores.Count} " +
-                     $"Chmiel: {gameObjectManager.Plants.Count} " +
-                     $"Woda: {gameObjectManager.Waters.Count} ";
+        stats.text = $"Janusze: {gameObjectManager.Janusze.Count} " +
+                     $"Harnasie: {gameObjectManager.Harnasie.Count} " +
+                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";// +
+                     //$"Woda: {gameObjectManager.Waters.Count} ";
 
         coinText.text = $"Gold: {coins}";
 
-        if (chanceForEvent > Random.Range(10, 100))
+        if (chanceForEvent > Random.Range(20, 100))
         {
             chanceForEvent = 0;
             var active = events.Where(x => x.Cooldown <= 0).ToList();

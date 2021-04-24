@@ -15,14 +15,14 @@
             TTL = 5;
             Cooldown = 15;
             
-            gmo.Carnivores.ForEach(x => x.HungerEachTurn = 5);
-            gmo.Plants.ForEach(x => x.HungerEachTurn = 0);
+            gmo.Janusze.ForEach(x => x.HungerEachTurn = 5);
+            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 0);
         }
 
         public override void Remove()
         {
-            gmo.Carnivores.ForEach(x => x.HungerEachTurn = 2);
-            gmo.Plants.ForEach(x => x.HungerEachTurn = 3);
+            gmo.Janusze.ForEach(x => x.HungerEachTurn = 2);
+            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 3);
         }
     }
 }

@@ -20,14 +20,14 @@
                 gmo.AddHerbivore();
             }
             
-            gmo.Plants.ForEach(x => x.HungerEachTurn = 8);
-            //gmo.Herbivores.ForEach(x => x.HungerOnEat = 140);
+            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 8);
+            //gmo.Harnasie.ForEach(x => x.HungerOnEat = 140);
         }
 
         public override void Remove()
         {
-            gmo.Plants.ForEach(x => x.HungerEachTurn = 3);
-            //gmo.Herbivores.ForEach(x => x.HungerOnEat = 140);
+            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 3);
+            //gmo.Harnasie.ForEach(x => x.HungerOnEat = 140);
         }
     }
 }

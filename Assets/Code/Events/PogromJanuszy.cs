@@ -2,27 +2,29 @@
 
 namespace Code.Events
 {
-    public class NowaFabrykaHarnasia : Event
+    public class PogromJanuszy : Event
     {
-        public NowaFabrykaHarnasia()
+        public PogromJanuszy()
         {
-            name = "Nowa Fabryka Harnasia";
-            description = "Popyt rodzi podaż";
+            name = "Pogrom Januszy";
+            description = "Tydzień Somsiada, populacja Januszy zmniejsza się";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
         {
             base.Apply(gameObjectManager);
             
-            TTL = 1;
+            TTL = 5;
             Cooldown = 15;
             
-            gmo.Harnasie.ForEach(x => x.Hunger = Random.Range(0, 10));
+            for (var i = 0; i < 5; i++)
+            {
+                gmo.RemoveCarnivore();
+            }
         }
 
         public override void Remove()
         {
-            
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Code.Events
             TTL = 1;
             Cooldown = 15;
             
-            gmo.Plants.ForEach(x => x.Hunger += Random.Range(20, 60));
+            gmo.Chmiele.ForEach(x => x.Hunger += Random.Range(20, 60));
         }
 
         public override void Remove()

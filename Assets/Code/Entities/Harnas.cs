@@ -2,7 +2,7 @@
 
 namespace Code.Entities
 {
-    public class Herbivore : Entity
+    public class Harnas : Entity
     {
         public override void Setup(Vector3 position)
         {
