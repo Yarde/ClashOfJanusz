@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9f65dd08e807700eebbcbff1158de151
+guid: a70cd9899a6952b4293bd1f4c26f7621
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8747805030337668959
-    second: janusz_0
+      213: -9168482350716162527
+    second: harnas_2_duzy_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -91,7 +91,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -103,7 +103,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -118,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: janusz_0
+      name: harnas_2_duzy_0
       rect:
         serializedVersion: 2
-        x: 103
-        y: 0
-        width: 177
-        height: 386
+        x: 216
+        y: 63
+        width: 75
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a8195a3cad899680800000000000000
-      internalID: -8747805030337668959
+      spriteID: 12eef14f0e103c080800000000000000
+      internalID: -9168482350716162527
       vertices: []
       indices: 
       edges: []
