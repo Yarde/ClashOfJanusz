@@ -2,7 +2,7 @@
 {
     public class Herbivore : Entity
     {
-        public Herbivore() : base()
+        public override void Setup()
         {
             MaxHunger = 100;
             HungerEachTurn = 3;

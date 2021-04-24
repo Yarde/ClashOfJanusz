@@ -10,7 +10,10 @@ using Random = System.Random;
 
 public class GameObjectManager : MonoBehaviour
 {
-    public List<Entity> entities = new List<Entity>();
+    [SerializeField] public Carnivore janusz;
+    [SerializeField] public Herbivore harnas;
+    [SerializeField] public Plant chmiel;
+    [SerializeField] public Water woda;
 
     public List<Carnivore> Carnivores = new List<Carnivore>();
     public List<Herbivore> Herbivores = new List<Herbivore>();
@@ -21,22 +24,30 @@ public class GameObjectManager : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            Carnivores.Add(new Carnivore());
+            var c = Instantiate(janusz, transform);
+            c.Setup();
+            Carnivores.Add(c);
         }
         
         for (int i = 0; i < 20; i++)
         {
-            Herbivores.Add(new Herbivore());
+            var h = Instantiate(harnas, transform);
+            h.Setup();
+            Herbivores.Add(h);
         }
         
         for (int i = 0; i < 50; i++)
         {
-            Plants.Add(new Plant());
+            var p = Instantiate(chmiel, transform);
+            p.Setup();
+            Plants.Add(p);
         }
         
         for (int i = 0; i < 100; i++)
         {
-            Waters.Add(new Water());
+            var w = Instantiate(woda, transform);
+            w.Setup();
+            Waters.Add(w);
         }
     }
 
@@ -79,22 +90,30 @@ public class GameObjectManager : MonoBehaviour
 
         Plants.FindAll(x => x.toReproduce).ForEach(x =>
         {
-            Plants.Add(new Plant());
+            var p = Instantiate(chmiel, transform);
+            p.Setup();
+            Plants.Add(p);
             x.Reproduce();
         });
         Herbivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
-            Herbivores.Add(new Herbivore());
+            var h = Instantiate(harnas, transform);
+            h.Setup();
+            Herbivores.Add(h);
             x.Reproduce();
         });
         Carnivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
-            Carnivores.Add(new Carnivore());
+            var c = Instantiate(janusz, transform);
+            c.Setup();
+            Carnivores.Add(c);
             x.Reproduce();
         });
         Waters.FindAll(x => x.toReproduce && Waters.Count < 100).ForEach(x =>
         {
-            Waters.Add(new Water());
+            var w = Instantiate(woda, transform);
+            w.Setup();
+            Waters.Add(w);
             x.Reproduce();
         });
     }

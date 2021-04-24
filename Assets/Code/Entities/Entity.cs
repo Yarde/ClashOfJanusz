@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Entities
 {
-    public abstract class Entity
+    public abstract class Entity : MonoBehaviour
     {
         public int Hunger;
         public int MaxHunger;
@@ -14,8 +14,10 @@ namespace Code.Entities
         public bool toKill;
         public bool toReproduce;
 
-        public Entity()
+        public virtual void Setup()
         {
+            transform.position = new Vector3(Random.Range(0.0f, 100.0f), 0, Random.Range(0.0f, 100.0f));
+            
             Hunger = 0;
             toKill = false;
             toReproduce = false;

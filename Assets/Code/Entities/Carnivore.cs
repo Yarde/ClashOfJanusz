@@ -4,7 +4,7 @@ namespace Code.Entities
 {
     public class Carnivore : Entity
     {
-        public Carnivore() : base()
+        public override void Setup()
         {
             MaxHunger = 200;
             HungerEachTurn = 2;

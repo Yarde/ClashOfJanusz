@@ -7,7 +7,7 @@ namespace Code.Entities
 {
     public class Plant : Entity
     {
-        public Plant() : base()
+        public override void Setup()
         {
             MaxHunger = 100;
             HungerEachTurn = 3;

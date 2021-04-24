@@ -2,7 +2,7 @@
 {
     public class Water : Entity
     {
-        public Water() : base()
+        public override void Setup()
         {
             MaxHunger = 200;
             HungerEachTurn = -1;
