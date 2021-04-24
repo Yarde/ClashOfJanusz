@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using Code;
 using Code.Entities;
 using UnityEngine;
 using Event = Code.Events.Event;
 using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameObjectManager : MonoBehaviour
 {
@@ -14,6 +17,7 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Plant chmiel;
     [SerializeField] public Water woda;
     [SerializeField] public Transform januszBounds;
+    [SerializeField] public List<Transform> chmielSpawners;
 
     public List<Carnivore> Carnivores = new List<Carnivore>();
     public List<Herbivore> Herbivores = new List<Herbivore>();
@@ -21,6 +25,8 @@ public class GameObjectManager : MonoBehaviour
     public List<Water> Waters = new List<Water>();
     
     public List<Event> events = new List<Event>();
+
+    private System.Random _random = new System.Random();
 
     public void Init()
     {
@@ -41,7 +47,7 @@ public class GameObjectManager : MonoBehaviour
         for (int i = 0; i < 50; i++)
         {
             var p = Instantiate(chmiel, transform);
-            p.Setup(RandomPointInBounds(januszBounds));
+            p.Setup(RandomPointInBoundsList(chmielSpawners));
             Plants.Add(p);
         }
         
@@ -51,6 +57,11 @@ public class GameObjectManager : MonoBehaviour
             w.Setup(RandomPointInBounds(januszBounds));
             Waters.Add(w);
         }
+    }
+
+    private Vector3 RandomPointInBoundsList(List<Transform> bounds)
+    {
+        return RandomPointInBounds(bounds[_random.Next(bounds.Count)]);
     }
     
     public static Vector3 RandomPointInBounds(Transform bounds)
@@ -120,7 +131,7 @@ public class GameObjectManager : MonoBehaviour
         Plants.FindAll(x => x.toReproduce).ForEach(x =>
         {
             var p = Instantiate(chmiel, transform);
-            p.Setup(RandomPointInBounds(januszBounds));
+            p.Setup(RandomPointInBoundsList(chmielSpawners));
             Plants.Add(p);
             x.Reproduce();
         });
