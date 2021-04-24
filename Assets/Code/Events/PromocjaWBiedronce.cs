@@ -7,7 +7,7 @@ namespace Code.Events
         public PromocjaWBiedronce()
         {
             name = "Promocja W Biedronce";
-            description = "Grażyna znowu Harnaś na promocji";
+            description = "Ej! Grażyna! Znowu Harnaś na promocji";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

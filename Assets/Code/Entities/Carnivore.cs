@@ -9,7 +9,7 @@ namespace Code.Entities
             base.Setup();
             
             MaxHunger = 200;
-            HungerEachTurn = 2;
+            HungerEachTurn = 6;
             HungerOnEat = 100;
             HungerOnReproduce = 100;
         }

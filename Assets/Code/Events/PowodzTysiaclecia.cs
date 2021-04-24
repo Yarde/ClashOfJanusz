@@ -5,7 +5,7 @@
         public PowodzTysiaclecia()
         {
             name = "Powodz Tysiaclecia";
-            description = "Cholera znowu na pola wylało";
+            description = "Kurwa znowu na pola wylało";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

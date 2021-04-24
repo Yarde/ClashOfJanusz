@@ -22,39 +22,33 @@ public class GameObjectManager : MonoBehaviour
     public List<Water> Waters = new List<Water>();
     
     public List<Event> events = new List<Event>();
+    public bool Lost => Carnivores.Count == 0 && Herbivores.Count == 0 && Plants.Count == 0;
+    public int Points => Carnivores.Count * 3 + Herbivores.Count * 2 + Plants.Count;
 
     public void Init()
     {
         for (int i = 0; i < 10; i++)
         {
-            var c = Instantiate(janusz, transform);
-            c.Setup();
-            Carnivores.Add(c);
+            AddCarnivore();
         }
         
         for (int i = 0; i < 20; i++)
         {
-            var h = Instantiate(harnas, transform);
-            h.Setup();
-            Herbivores.Add(h);
+            AddHerbivore();
         }
         
         for (int i = 0; i < 50; i++)
         {
-            var p = Instantiate(chmiel, transform);
-            p.Setup();
-            Plants.Add(p);
+            AddPlant();
         }
         
         for (int i = 0; i < 100; i++)
         {
-            var w = Instantiate(woda, transform);
-            w.Setup();
-            Waters.Add(w);
+            AddWater();
         }
     }
 
-    public void Resolve()
+    public bool Resolve()
     {
         foreach (var e in events)
         {
@@ -88,6 +82,7 @@ public class GameObjectManager : MonoBehaviour
         UpdateEntities();
         
         Debug.Log($"Carnivores: {Carnivores.Count} Herbivores: {Herbivores.Count} Plants: {Plants.Count} Waters: {Waters.Count} ");
+        return Lost;
     }
 
     private void UpdateEntities()
@@ -104,31 +99,51 @@ public class GameObjectManager : MonoBehaviour
 
         Plants.FindAll(x => x.toReproduce).ForEach(x =>
         {
-            var p = Instantiate(chmiel, transform);
-            p.Setup();
-            Plants.Add(p);
+            AddPlant();
             x.Reproduce();
         });
         Herbivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
-            var h = Instantiate(harnas, transform);
-            h.Setup();
-            Herbivores.Add(h);
+            AddHerbivore();
             x.Reproduce();
         });
         Carnivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
-            var c = Instantiate(janusz, transform);
-            c.Setup();
-            Carnivores.Add(c);
+            AddCarnivore();
             x.Reproduce();
         });
         Waters.FindAll(x => x.toReproduce && Waters.Count < 100).ForEach(x =>
         {
-            var w = Instantiate(woda, transform);
-            w.Setup();
-            Waters.Add(w);
+            AddWater();
             x.Reproduce();
         });
+    }
+
+    public void AddCarnivore()
+    {
+        var c = Instantiate(janusz, transform);
+        c.Setup();
+        Carnivores.Add(c);
+    }
+    
+    public void AddHerbivore()
+    {
+        var c = Instantiate(harnas, transform);
+        c.Setup();
+        Herbivores.Add(c);
+    }
+    
+    public void AddPlant()
+    {
+        var c = Instantiate(chmiel, transform);
+        c.Setup();
+        Plants.Add(c);
+    }
+    
+    public void AddWater()
+    {
+        var c = Instantiate(woda, transform);
+        c.Setup();
+        Waters.Add(c);
     }
 }

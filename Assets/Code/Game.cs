@@ -17,10 +17,11 @@ public class Game : MonoBehaviour
     [SerializeField] public GameObjectManager gameObjectManager;
     [SerializeField] public TMP_Text stats;
     [SerializeField] public TMP_Text coinText;
-    [SerializeField] public Popup info;
+    [SerializeField] public TMP_Text timer;
+    [SerializeField] public Popup popup;
     [SerializeField] public EventButton[] eventButtons;
 
-    public int coins = 10;
+    public int coins = 20;
     public int infoTime = 0;
 
     public int chanceForEvent;
@@ -28,6 +29,8 @@ public class Game : MonoBehaviour
     private int nextUpdate;
     
     public List<Event> events = new List<Event>();
+
+    public float timeStart;
     
     void Start()
     {
@@ -35,9 +38,11 @@ public class Game : MonoBehaviour
         
         // setup event buttons
         eventButtons[0].ev = new OkresGodowy();
-        eventButtons[1].ev = new PowodzTysiaclecia();
-        eventButtons[2].ev = new FestiwalPiwa();
-        eventButtons[3].ev = new Koronawirus();
+        eventButtons[1].ev = new FestiwalPiwa();
+        eventButtons[2].ev = new Koronawirus();
+        eventButtons[3].ev = new PowodzTysiaclecia();
+        
+        
 
         for (var i = 0; i < eventButtons.Length; i++)
         {
@@ -54,6 +59,8 @@ public class Game : MonoBehaviour
         events.Add(new WywroconyTir());
         events.Add(new TydzienAlkoholizmu());
         events.Add(new TydzienTrzezwosci());
+
+        timeStart = Time.realtimeSinceStartup;
     }
     
     void Update()
@@ -62,67 +69,103 @@ public class Game : MonoBehaviour
         {
             nextUpdate = Mathf.FloorToInt(Time.time) + 1;
             GameLoop();
-
-            stats.text = $"Janusze: {gameObjectManager.Carnivores.Count} " +
-                         $"Harnasie: {gameObjectManager.Herbivores.Count} " +
-                         $"Chmiel: {gameObjectManager.Plants.Count} " +
-                         $"Woda: {gameObjectManager.Waters.Count} ";
-
-            coinText.text = $"Gold: {coins}";
-
-            if (chanceForEvent > Random.Range(10, 100))
-            {
-                chanceForEvent = 0;
-                var active = events.Where(x => x.Cooldown <= 0).ToList();
-                
-                int index = Random.Range(0, active.Count);
-
-                var ev = active[index];
-                ApplyEvent(ev);
-            }
-            else
-            {
-                chanceForEvent++;
-            }
             
-            if (infoTime > 0)
+            var time = Time.realtimeSinceStartup - timeStart;
+            timer.text = $"Czas: {GetTime(time)}";
+            
+            if (gameObjectManager.Lost)
             {
-                infoTime--;
-                if (infoTime <= 0)
-                {
-                    info.gameObject.SetActive(false);
-                }
+                popup.gameObject.SetActive(true);
+                popup.text.text = "Przegrałeś";
+                popup.description.text = $"Przetrwałes {GetTime(time)}";
+                popup.buttonText.text = "Jeszcze raz?";
+                popup.button.onClick.AddListener(popup.TryAgain);
+                nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
             }
 
-            foreach (var b in eventButtons)
+            if (time > 300)
             {
-                if (b.ev.Cooldown <= 0)
-                {
-                    b.button.enabled = true;
-                    b.buttonText.text = b.ev.name;
-                }
-                else
-                {
-                    b.buttonText.text = b.ev.Cooldown.ToString();
-                }
+                popup.gameObject.SetActive(true);
+                popup.text.text = "Wygrałeś!";
+                popup.description.text = $"Zdobyłeś {gameObjectManager.Points} punktów";
+                popup.buttonText.text = "Jeszcze raz?";
+                popup.button.onClick.AddListener(popup.TryAgain);
+                nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
             }
         }
     }
 
+    string GetTime(float time)
+    {
+        var minutes = (int) (time / 60);
+        var seconds = (int) (time % 60);
+
+        if (seconds < 10)
+        {
+            return $"0{minutes}:0{seconds}";
+        }
+        return $"0{minutes}:{seconds}";
+    }
+
     void GameLoop()
     {
-        Debug.Log("resolve");
+        if (gameObjectManager.Resolve())
+        {
+            return;
+        }
 
-        gameObjectManager.Resolve();
+        stats.text = $"Janusze: {gameObjectManager.Carnivores.Count} " +
+                     $"Harnasie: {gameObjectManager.Herbivores.Count} " +
+                     $"Chmiel: {gameObjectManager.Plants.Count} " +
+                     $"Woda: {gameObjectManager.Waters.Count} ";
+
+        coinText.text = $"Gold: {coins}";
+
+        if (chanceForEvent > Random.Range(10, 100))
+        {
+            chanceForEvent = 0;
+            var active = events.Where(x => x.Cooldown <= 0).ToList();
+                
+            int index = Random.Range(0, active.Count);
+
+            var ev = active[index];
+            ApplyEvent(ev);
+        }
+        else
+        {
+            chanceForEvent++;
+        }
+            
+        if (infoTime > 0)
+        {
+            infoTime--;
+            if (infoTime <= 0)
+            {
+                popup.gameObject.SetActive(false);
+            }
+        }
+
+        foreach (var b in eventButtons)
+        {
+            if (b.ev.Cooldown <= 0)
+            {
+                b.button.enabled = true;
+                b.buttonText.text = b.ev.name;
+            }
+            else
+            {
+                b.buttonText.text = b.ev.Cooldown.ToString();
+            }
+        }
     }
 
     void ApplyEvent(EventButton b)
     {
         if (coins < b.price)
         {
-            info.gameObject.SetActive(true);
-            info.text.text = "Za mało cebuli!";
-            info.description.text = "Kup więcej cebuli w sklepie lub poczekaj 60 minut";
+            popup.gameObject.SetActive(true);
+            popup.text.text = "Za mało cebuli!";
+            popup.description.text = "Kup więcej cebuli w sklepie lub poczekaj 60 minut";
             infoTime = 3;
             return;
         }
@@ -138,9 +181,9 @@ public class Game : MonoBehaviour
         ev.Apply(gameObjectManager);
         gameObjectManager.events.Add(ev);
         
-        info.gameObject.SetActive(true);
-        info.text.text = ev.name;
-        info.description.text = ev.description;
+        popup.gameObject.SetActive(true);
+        popup.text.text = ev.name;
+        popup.description.text = ev.description;
         infoTime = 5;
     }
     
