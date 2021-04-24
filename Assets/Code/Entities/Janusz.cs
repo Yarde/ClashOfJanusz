@@ -30,7 +30,8 @@ namespace Code.Entities
 
             if (poziomNajebania >= 60)
             {
-                gmo.AddHerbivore();
+                if (Random.Range(0.0f, 1.0f) > 0.5)
+                    gmo.Coins += 1;
             }
         }
 

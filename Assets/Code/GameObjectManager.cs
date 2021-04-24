@@ -24,10 +24,25 @@ public class GameObjectManager : MonoBehaviour
     public bool Lost => Janusze.Count == 0 && Harnasie.Count == 0 && Chmiele.Count == 0;
     public int Points => Janusze.Count * 3 + Harnasie.Count * 2 + Chmiele.Count;
 
+    public int Coins { get; set; }
+
     private System.Random _random = new System.Random();
+
+    public void Reset()
+    {
+        Chmiele.ForEach(x => Destroy(x.gameObject));
+        Harnasie.ForEach(x => Destroy(x.gameObject));
+        Janusze.ForEach(x => Destroy(x.gameObject));
+        
+        Janusze.Clear();
+        Harnasie.Clear();
+        Chmiele.Clear();
+    }
 
     public void Init()
     {
+        Coins = 10;
+        
         for (int i = 0; i < 5; i++)
         {
             AddCarnivore();

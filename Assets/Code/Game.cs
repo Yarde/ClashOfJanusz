@@ -35,7 +35,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         gameObjectManager.Init();
-        
+
         // setup event buttons
         eventButtons[0].ev = new OkresGodowy();
         eventButtons[1].ev = new FestiwalPiwa();
@@ -62,6 +62,7 @@ public class Game : MonoBehaviour
         events.Add(new PogromJanuszy());
 
         timeStart = Time.realtimeSinceStartup;
+        nextUpdate = Mathf.FloorToInt(Time.time);
     }
     
     void Update()
@@ -73,22 +74,12 @@ public class Game : MonoBehaviour
             
             var time = Time.realtimeSinceStartup - timeStart;
             timer.text = $"Czas: {GetTime(time)}";
-            
-            if (gameObjectManager.Lost)
-            {
-                popup.gameObject.SetActive(true);
-                popup.text.text = "Przegrałeś";
-                popup.description.text = $"Przetrwałes {GetTime(time)}";
-                popup.buttonText.text = "Jeszcze raz?";
-                popup.button.onClick.AddListener(popup.TryAgain);
-                nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
-            }
 
-            if (time > 300)
+            if (gameObjectManager.Janusze.Count >= 30)
             {
                 popup.gameObject.SetActive(true);
                 popup.text.text = "Wygrałeś!";
-                popup.description.text = $"Zdobyłeś {gameObjectManager.Points} punktów";
+                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(time)}";
                 popup.buttonText.text = "Jeszcze raz?";
                 popup.button.onClick.AddListener(popup.TryAgain);
                 nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
@@ -120,7 +111,7 @@ public class Game : MonoBehaviour
                      $"Chmiel: {gameObjectManager.Chmiele.Count} ";// +
                      //$"Woda: {gameObjectManager.Waters.Count} ";
 
-        coinText.text = $"Gold: {coins}";
+        coinText.text = $"Gold: {gameObjectManager.Coins}";
 
         if (chanceForEvent > Random.Range(20, 100))
         {
@@ -162,7 +153,7 @@ public class Game : MonoBehaviour
 
     void ApplyEvent(EventButton b)
     {
-        if (coins < b.price)
+        if (gameObjectManager.Coins < b.price)
         {
             popup.gameObject.SetActive(true);
             popup.text.text = "Za mało cebuli!";
@@ -171,7 +162,7 @@ public class Game : MonoBehaviour
             return;
         }
         
-        coins -= b.price;
+        gameObjectManager.Coins -= b.price;
         b.button.enabled = false;
         b.buttonText.text = b.ev.Cooldown.ToString();
         ApplyEvent(b.ev);
@@ -196,5 +187,11 @@ public class Game : MonoBehaviour
         public Event ev;
         public Button button;
         public TMP_Text buttonText;
+    }
+
+    public void Reset()
+    {
+        gameObjectManager.Reset();
+        Start();
     }
 }
