@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 740010793831334491}
   - component: {fileID: 4620894662109770139}
   - component: {fileID: 5599387948295258395}
+  - component: {fileID: -2608182239733461986}
   m_Layer: 0
   m_Name: Janusz
   m_TagString: Untagged
@@ -67,6 +68,23 @@ MonoBehaviour:
   min: 0.8
   max: 1.2
   jellyTime: 0.5
+--- !u!114 &-2608182239733461986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865957041867531429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5d83a9ee70a58f89132b0839584bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1622708628494941106}
+  destination: {x: 0, y: 0}
+  speed: 0.8
+  lastMoveTime: 0
+  restTime: 0
 --- !u!1 &6080595196165586915
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,6 +132,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Code;
 using Code.Entities;
 using UnityEngine;
 using Event = Code.Events.Event;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class GameObjectManager : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Herbivore harnas;
     [SerializeField] public Plant chmiel;
     [SerializeField] public Water woda;
+    [SerializeField] public Transform januszBounds;
 
     public List<Carnivore> Carnivores = new List<Carnivore>();
     public List<Herbivore> Herbivores = new List<Herbivore>();
@@ -28,31 +27,47 @@ public class GameObjectManager : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             var c = Instantiate(janusz, transform);
-            c.Setup();
+            c.Setup(RandomPointInBounds(januszBounds));
             Carnivores.Add(c);
         }
         
         for (int i = 0; i < 20; i++)
         {
             var h = Instantiate(harnas, transform);
-            h.Setup();
+            h.Setup(RandomPointInBounds(januszBounds));
             Herbivores.Add(h);
         }
         
         for (int i = 0; i < 50; i++)
         {
             var p = Instantiate(chmiel, transform);
-            p.Setup();
+            p.Setup(RandomPointInBounds(januszBounds));
             Plants.Add(p);
         }
         
         for (int i = 0; i < 100; i++)
         {
             var w = Instantiate(woda, transform);
-            w.Setup();
+            w.Setup(RandomPointInBounds(januszBounds));
             Waters.Add(w);
         }
     }
+    
+    public static Vector3 RandomPointInBounds(Transform bounds)
+    {
+        Vector2 location = Random.insideUnitCircle;
+        location.x *= bounds.localScale.x / 2;
+        location.y *= bounds.localScale.y / 2;
+        location.x += bounds.position.x;
+        location.y += bounds.position.z;
+        return new Vector3(location.x, 0, location.y);
+    }
+
+    public Vector3 RandomJanuszWanderPoint()
+    {
+        return RandomPointInBounds(januszBounds);
+    }
+
 
     public void Resolve()
     {
@@ -105,28 +120,28 @@ public class GameObjectManager : MonoBehaviour
         Plants.FindAll(x => x.toReproduce).ForEach(x =>
         {
             var p = Instantiate(chmiel, transform);
-            p.Setup();
+            p.Setup(RandomPointInBounds(januszBounds));
             Plants.Add(p);
             x.Reproduce();
         });
         Herbivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
             var h = Instantiate(harnas, transform);
-            h.Setup();
+            h.Setup(RandomPointInBounds(januszBounds));
             Herbivores.Add(h);
             x.Reproduce();
         });
         Carnivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
             var c = Instantiate(janusz, transform);
-            c.Setup();
+            c.Setup(RandomPointInBounds(januszBounds));
             Carnivores.Add(c);
             x.Reproduce();
         });
         Waters.FindAll(x => x.toReproduce && Waters.Count < 100).ForEach(x =>
         {
             var w = Instantiate(woda, transform);
-            w.Setup();
+            w.Setup(RandomPointInBounds(januszBounds));
             Waters.Add(w);
             x.Reproduce();
         });

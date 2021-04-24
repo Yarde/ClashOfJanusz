@@ -1,10 +1,12 @@
-﻿namespace Code.Entities
+﻿using UnityEngine;
+
+namespace Code.Entities
 {
     public class Herbivore : Entity
     {
-        public override void Setup()
+        public override void Setup(Vector3 position)
         {
-            base.Setup();
+            base.Setup(position);
 
             MaxHunger = 100;
             HungerEachTurn = 3;

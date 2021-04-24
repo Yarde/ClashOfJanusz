@@ -7,9 +7,9 @@ namespace Code.Entities
 {
     public class Plant : Entity
     {
-        public override void Setup()
+        public override void Setup(Vector3 position)
         {
-            base.Setup();
+            base.Setup(position);
 
             MaxHunger = 100;
             HungerEachTurn = 3;
