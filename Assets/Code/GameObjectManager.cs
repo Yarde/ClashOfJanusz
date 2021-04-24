@@ -5,6 +5,7 @@ using System.Text;
 using Code;
 using Code.Entities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Event = Code.Events.Event;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
@@ -16,8 +17,10 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Herbivore harnas;
     [SerializeField] public Plant chmiel;
     [SerializeField] public Water woda;
-    [SerializeField] public Transform januszBounds;
+    [SerializeField] public Transform januszSpawner;
+    [SerializeField] public Transform januszWalkYard;
     [SerializeField] public List<Transform> chmielSpawners;
+    [SerializeField] public Transform harnasSpawner;
 
     public List<Carnivore> Carnivores = new List<Carnivore>();
     public List<Herbivore> Herbivores = new List<Herbivore>();
@@ -33,14 +36,14 @@ public class GameObjectManager : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             var c = Instantiate(janusz, transform);
-            c.Setup(RandomPointInBounds(januszBounds));
+            c.Setup(RandomPointInBounds(januszSpawner));
             Carnivores.Add(c);
         }
         
         for (int i = 0; i < 20; i++)
         {
             var h = Instantiate(harnas, transform);
-            h.Setup(RandomPointInBounds(januszBounds));
+            h.Setup(RandomPointInBounds(harnasSpawner));
             Herbivores.Add(h);
         }
         
@@ -54,7 +57,7 @@ public class GameObjectManager : MonoBehaviour
         for (int i = 0; i < 100; i++)
         {
             var w = Instantiate(woda, transform);
-            w.Setup(RandomPointInBounds(januszBounds));
+            w.Setup(RandomPointInBounds(januszSpawner));
             Waters.Add(w);
         }
     }
@@ -76,7 +79,7 @@ public class GameObjectManager : MonoBehaviour
 
     public Vector3 RandomJanuszWanderPoint()
     {
-        return RandomPointInBounds(januszBounds);
+        return RandomPointInBounds(januszWalkYard);
     }
 
 
@@ -138,21 +141,21 @@ public class GameObjectManager : MonoBehaviour
         Herbivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
             var h = Instantiate(harnas, transform);
-            h.Setup(RandomPointInBounds(januszBounds));
+            h.Setup(RandomPointInBounds(harnasSpawner));
             Herbivores.Add(h);
             x.Reproduce();
         });
         Carnivores.FindAll(x => x.toReproduce).ForEach(x =>
         {
             var c = Instantiate(janusz, transform);
-            c.Setup(RandomPointInBounds(januszBounds));
+            c.Setup(RandomPointInBounds(januszSpawner));
             Carnivores.Add(c);
             x.Reproduce();
         });
         Waters.FindAll(x => x.toReproduce && Waters.Count < 100).ForEach(x =>
         {
             var w = Instantiate(woda, transform);
-            w.Setup(RandomPointInBounds(januszBounds));
+            w.Setup(RandomPointInBounds(januszSpawner));
             Waters.Add(w);
             x.Reproduce();
         });
