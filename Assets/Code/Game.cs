@@ -97,8 +97,24 @@ public class Game : MonoBehaviour
 
             if (chanceForEvent > Random.Range(10, 100))
             {
+                chanceForEvent = 0;
+                int index = Random.Range(0, events.Count);
+
+                var ev = events[index];
                 
+                ev.Apply(gameObjectManager);
+                gameObjectManager.events.Add(ev);
+        
+                info.gameObject.SetActive(true);
+                info.text.text = ev.name;
+                info.description.text = ev.description;
+                infoTime = 5;
             }
+            else
+            {
+                chanceForEvent++;
+            }
+            
 
             if (infoTime > 0)
             {
