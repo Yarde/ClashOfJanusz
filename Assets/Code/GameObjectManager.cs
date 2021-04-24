@@ -6,6 +6,7 @@ using System.Text;
 using Code;
 using Code.Entities;
 using UnityEngine;
+using Event = Code.Events.Event;
 using Random = System.Random;
 
 public class GameObjectManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class GameObjectManager : MonoBehaviour
     public List<Herbivore> Herbivores = new List<Herbivore>();
     public List<Plant> Plants = new List<Plant>();
     public List<Water> Waters = new List<Water>();
+    
+    public List<Event> events = new List<Event>();
 
     public void Init()
     {
@@ -53,6 +56,12 @@ public class GameObjectManager : MonoBehaviour
 
     public void Resolve()
     {
+        foreach (var e in events)
+        {
+            e.Update();
+        }
+        events.RemoveAll(s => s.TTL <= 0);
+        
         foreach (var p in Plants)
         {
             p.Resolve();
