@@ -20,7 +20,7 @@ namespace UI
 
         public void TryAgain()
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
         }
     }
 }
