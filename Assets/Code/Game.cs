@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Code.Events;
 using TMPro;
@@ -27,8 +28,7 @@ public class Game : MonoBehaviour
     private int nextUpdate;
     
     public List<Event> events = new List<Event>();
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         gameObjectManager.Init();
@@ -46,31 +46,7 @@ public class Game : MonoBehaviour
             ev.priceText.text = ev.price.ToString();
             ev.buttonText.text = ev.ev.name;
         }
-        
-        // eventButtons[0].button.onClick.AddListener(() => ApplyEvent(eventButtons[0]));
-        // eventButtons[0].priceText.text = eventButtons[0].price.ToString();
-        // eventButtons[0].buttonText.text = eventButtons[0].ev.name;
-        //
-        //
-        // eventButtons[1].button.onClick.AddListener(() => ApplyEvent(eventButtons[1]));
-        // eventButtons[1].priceText.text = eventButtons[1].price.ToString();
-        // eventButtons[1].buttonText.text = eventButtons[1].ev.name;
-        //
-        //
-        // eventButtons[2].button.onClick.AddListener(() => ApplyEvent(eventButtons[2]));
-        // eventButtons[2].priceText.text = eventButtons[2].price.ToString();
-        // eventButtons[2].buttonText.text = eventButtons[2].ev.name;
-        //
-        //
-        // eventButtons[3].button.onClick.AddListener(() => ApplyEvent(eventButtons[3]));
-        // eventButtons[3].priceText.text = eventButtons[3].price.ToString();
-        // eventButtons[3].buttonText.text = eventButtons[3].ev.name;
-        
-        //events.Add(new OkresGodowy());
-        //events.Add(new PowodzTysiaclecia());
-        //events.Add(new FestiwalPiwa());
-        //events.Add(new Koronawirus());
-        
+
         events.Add(new NowaFabrykaHarnasia());
         events.Add(new PincsetPlus());
         events.Add(new PromocjaWBiedronce());
@@ -79,8 +55,7 @@ public class Game : MonoBehaviour
         events.Add(new TydzienAlkoholizmu());
         events.Add(new TydzienTrzezwosci());
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (Time.time >= nextUpdate)
@@ -98,24 +73,18 @@ public class Game : MonoBehaviour
             if (chanceForEvent > Random.Range(10, 100))
             {
                 chanceForEvent = 0;
-                int index = Random.Range(0, events.Count);
-
-                var ev = events[index];
+                var active = events.Where(x => x.Cooldown <= 0).ToList();
                 
-                ev.Apply(gameObjectManager);
-                gameObjectManager.events.Add(ev);
-        
-                info.gameObject.SetActive(true);
-                info.text.text = ev.name;
-                info.description.text = ev.description;
-                infoTime = 5;
+                int index = Random.Range(0, active.Count);
+
+                var ev = active[index];
+                ApplyEvent(ev);
             }
             else
             {
                 chanceForEvent++;
             }
             
-
             if (infoTime > 0)
             {
                 infoTime--;
@@ -161,13 +130,18 @@ public class Game : MonoBehaviour
         coins -= b.price;
         b.button.enabled = false;
         b.buttonText.text = b.ev.Cooldown.ToString();
-        b.ev.Apply(gameObjectManager);
-        gameObjectManager.events.Add(b.ev);
+        ApplyEvent(b.ev);
+    }
+
+    void ApplyEvent(Event ev)
+    {
+        ev.Apply(gameObjectManager);
+        gameObjectManager.events.Add(ev);
         
         info.gameObject.SetActive(true);
-        info.text.text = b.ev.name;
-        info.description.text = b.ev.description;
-        infoTime = 3;
+        info.text.text = ev.name;
+        info.description.text = ev.description;
+        infoTime = 5;
     }
     
     [Serializable]
