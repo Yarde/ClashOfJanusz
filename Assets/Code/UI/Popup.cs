@@ -8,6 +8,7 @@ namespace UI
     public class Popup : MonoBehaviour
     {
         [SerializeField] public TMP_Text text;
+        [SerializeField] public TMP_Text description;
         [SerializeField] public Button button;
 
         private void Start()

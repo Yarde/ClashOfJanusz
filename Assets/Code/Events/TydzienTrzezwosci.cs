@@ -1,7 +1,13 @@
 ﻿namespace Code.Events
 {
-    public class WeekOfSoberty : Event
+    public class TydzienTrzezwosci : Event
     {
+        public TydzienTrzezwosci()
+        {
+            name = "Tydzien Trzeźwości";
+            description = "Janusz, zostaw to piwo!";
+        }
+        
         public override void Apply(GameObjectManager gameObjectManager)
         {
             base.Apply(gameObjectManager);

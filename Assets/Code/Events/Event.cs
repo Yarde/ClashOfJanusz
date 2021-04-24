@@ -5,6 +5,8 @@ namespace Code.Events
     [Serializable]
     public abstract class Event
     {
+        public string name;
+        public string description;
         public int TTL;
         public int Cooldown;
 
