@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Code.Entities
 {
     public class Carnivore : Entity
     {
-        public override void Setup()
+        public override void Setup(Vector3 position)
         {
-            base.Setup();
+            base.Setup(position);
             
             MaxHunger = 200;
             HungerEachTurn = 6;

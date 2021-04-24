@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Code;
+﻿using System.Collections.Generic;
 using Code.Entities;
 using UnityEngine;
 using Event = Code.Events.Event;
-using Random = System.Random;
+using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameObjectManager : MonoBehaviour
 {
@@ -15,6 +12,8 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Herbivore harnas;
     [SerializeField] public Plant chmiel;
     [SerializeField] public Water woda;
+    [SerializeField] public Transform januszBounds;
+    [SerializeField] public List<Transform> chmielSpawners;
 
     public List<Carnivore> Carnivores = new List<Carnivore>();
     public List<Herbivore> Herbivores = new List<Herbivore>();
@@ -24,6 +23,8 @@ public class GameObjectManager : MonoBehaviour
     public List<Event> events = new List<Event>();
     public bool Lost => Carnivores.Count == 0 && Herbivores.Count == 0 && Plants.Count == 0;
     public int Points => Carnivores.Count * 3 + Herbivores.Count * 2 + Plants.Count;
+
+    private System.Random _random = new System.Random();
 
     public void Init()
     {
@@ -47,6 +48,27 @@ public class GameObjectManager : MonoBehaviour
             AddWater();
         }
     }
+    
+    private Vector3 RandomPointInBoundsList(List<Transform> bounds)
+    {
+        return RandomPointInBounds(bounds[_random.Next(bounds.Count)]);
+    }
+    
+    public static Vector3 RandomPointInBounds(Transform bounds)
+    {
+        Vector2 location = Random.insideUnitCircle;
+        location.x *= bounds.localScale.x / 2;
+        location.y *= bounds.localScale.y / 2;
+        location.x += bounds.position.x;
+        location.y += bounds.position.z;
+        return new Vector3(location.x, 0, location.y);
+    }
+
+    public Vector3 RandomJanuszWanderPoint()
+    {
+        return RandomPointInBounds(januszBounds);
+    }
+
 
     public bool Resolve()
     {
@@ -122,28 +144,28 @@ public class GameObjectManager : MonoBehaviour
     public void AddCarnivore()
     {
         var c = Instantiate(janusz, transform);
-        c.Setup();
+        c.Setup(RandomPointInBounds(januszBounds));
         Carnivores.Add(c);
     }
     
     public void AddHerbivore()
     {
         var c = Instantiate(harnas, transform);
-        c.Setup();
+        c.Setup(RandomPointInBounds(januszBounds));
         Herbivores.Add(c);
     }
     
     public void AddPlant()
     {
         var c = Instantiate(chmiel, transform);
-        c.Setup();
+        c.Setup(RandomPointInBounds(januszBounds));
         Plants.Add(c);
     }
     
     public void AddWater()
     {
         var c = Instantiate(woda, transform);
-        c.Setup();
+        c.Setup(RandomPointInBounds(januszBounds));
         Waters.Add(c);
     }
 }

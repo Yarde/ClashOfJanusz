@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Code.Entities
@@ -14,9 +13,9 @@ namespace Code.Entities
         public bool toKill;
         public bool toReproduce;
 
-        public virtual void Setup()
+        public virtual void Setup(Vector3 position)
         {
-            transform.position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+            transform.position = position;
             
             Hunger = 0;
             toKill = false;
