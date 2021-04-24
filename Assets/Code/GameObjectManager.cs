@@ -158,7 +158,7 @@ public class GameObjectManager : MonoBehaviour
     public void AddPlant()
     {
         var c = Instantiate(chmiel, transform);
-        c.Setup(RandomPointInBounds(januszBounds));
+        c.Setup(RandomPointInBoundsList(chmielSpawners));
         Plants.Add(c);
     }
     
