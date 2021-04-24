@@ -7,7 +7,7 @@ namespace Code.Events
         public PromocjaWBiedronce()
         {
             name = "Promocja W Biedronce";
-            description = "Grażyna znowu Harnaś na promocji";
+            description = "Ej! Grażyna! Znowu Harnaś na promocji";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -17,7 +17,7 @@ namespace Code.Events
             TTL = 1;
             Cooldown = 15;
 
-            gmo.Herbivores.ForEach(x => x.Hunger = Random.Range(0, 10));
+            gmo.Harnasie.ForEach(x => x.Hunger = Random.Range(0, 10));
         }
 
         public override void Remove()

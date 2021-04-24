@@ -1,4 +1,6 @@
-﻿namespace Code.Events
+﻿using UnityEngine;
+
+namespace Code.Events
 {
     public class OkresGodowy : Event
     {
@@ -15,14 +17,20 @@
             TTL = 5;
             Cooldown = 15;
             
-            gmo.Carnivores.ForEach(x => x.HungerOnEat = 150);
-            gmo.Herbivores.ForEach(x => x.HungerEachTurn = 6);
+            for (var i = 0; i < 3; i++)
+            {
+                gmo.AddCarnivore();
+            }
+            
+            //gmo.Janusze.ForEach(x => x.HungerOnEat = 150);
+            //gmo.Janusze.ForEach(x => x.Hunger -= Random.Range(10, 60));
+            gmo.Harnasie.ForEach(x => x.HungerEachTurn = 6);
         }
 
         public override void Remove()
         {
-            gmo.Carnivores.ForEach(x => x.HungerOnEat = 100);
-            gmo.Herbivores.ForEach(x => x.HungerEachTurn = 3);
+            //gmo.Janusze.ForEach(x => x.HungerOnEat = 100);
+            gmo.Harnasie.ForEach(x => x.HungerEachTurn = 3);
         }
     }
 }

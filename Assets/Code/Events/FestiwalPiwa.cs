@@ -15,14 +15,19 @@
             TTL = 5;
             Cooldown = 15;
             
-            gmo.Waters.ForEach(x => x.HungerEachTurn = 1);
-            gmo.Herbivores.ForEach(x => x.HungerOnEat = 140);
+            for (var i = 0; i < 5; i++)
+            {
+                gmo.AddHerbivore();
+            }
+            
+            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 8);
+            //gmo.Harnasie.ForEach(x => x.HungerOnEat = 140);
         }
 
         public override void Remove()
         {
-            gmo.Waters.ForEach(x => x.HungerEachTurn = -1);
-            gmo.Herbivores.ForEach(x => x.HungerOnEat = 140);
+            gmo.Chmiele.ForEach(x => x.HungerEachTurn = 3);
+            //gmo.Harnasie.ForEach(x => x.HungerOnEat = 140);
         }
     }
 }

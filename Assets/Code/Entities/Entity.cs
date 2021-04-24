@@ -24,18 +24,18 @@ namespace Code.Entities
 
         public virtual void Resolve()
         {
-            Hunger += HungerEachTurn;
-            
-            if (Hunger > MaxHunger)
-            {
-                toKill = true;
-            }
-            
-            if (Hunger < 0)
-            {
-                toReproduce = true;
-                Hunger = 0;
-            }
+            // Hunger += HungerEachTurn;
+            //
+            // if (Hunger > MaxHunger)
+            // {
+            //     toKill = true;
+            // }
+            //
+            // if (Hunger < 0)
+            // {
+            //     toReproduce = true;
+            //     Hunger = 0;
+            // }
         }
 
         public virtual void Reproduce()

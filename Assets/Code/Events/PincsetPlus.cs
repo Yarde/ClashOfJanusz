@@ -17,7 +17,7 @@ namespace Code.Events
             TTL = 1;
             Cooldown = 15;
 
-            gmo.Carnivores.ForEach(x => x.Hunger = Random.Range(0, 10));
+            gmo.Janusze.ForEach(x => x.Hunger = Random.Range(0, 10));
         }
 
         public override void Remove()
