@@ -8,6 +8,7 @@ namespace Code.Events
         {
             name = "Nowa Fabryka Harnasia";
             description = "Produkcja na maksa, fabryka wytrzyma!";
+            clip = Resources.Load<AudioClip>("Sounds/fanfary");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

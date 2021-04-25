@@ -8,6 +8,7 @@ namespace Code.Events
         {
             name = "Radioaktywny Deszcz";
             description = "Z czego teraz zrobimy Harnasia?";
+            clip = Resources.Load<AudioClip>("Sounds/rain");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

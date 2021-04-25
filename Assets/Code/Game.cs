@@ -45,7 +45,7 @@ public class Game : MonoBehaviour
             var ev = eventButtons[i];
             ev.button.onClick.AddListener(() => ApplyEvent(ev));
             ev.priceText.text = ev.price.ToString();
-            ev.buttonText.text = ev.ev.name;
+            ev.buttonText.text = "";
         }
 
         events.Add(new NowaFabrykaHarnasia());
@@ -72,16 +72,35 @@ public class Game : MonoBehaviour
             var time = Time.realtimeSinceStartup - timeStart;
             timer.text = $"Czas: {GetTime(time)}";
 
-            if (gameObjectManager.Janusze.Count >= 30)
+            if (gameObjectManager.Janusze.Count >= 10)
             {
                 popup.gameObject.SetActive(true);
                 popup.text.text = "Wygrałeś!";
                 popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(time)}";
-                popup.buttonText.text = "Jeszcze raz?";
+                popup.buttonText.text = "Hura!";
                 popup.button.onClick.AddListener(popup.TryAgain);
                 nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
             }
         }
+        
+        foreach (var b in eventButtons)
+        {
+            if (b.ev.Cooldown <= 0)
+            {
+                b.button.enabled = true;
+                b.buttonText.text = "";
+            }
+            else
+            {
+                b.buttonText.text = b.ev.Cooldown.ToString();
+            }
+        }
+        
+        stats.text = $"Janusze: {gameObjectManager.Janusze.Count} " +
+                     $"Harnasie: {gameObjectManager.Harnasie.Count} " +
+                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";
+
+        coinText.text = $"{gameObjectManager.Coins}";
     }
     
     void PauseGame ()
@@ -113,11 +132,6 @@ public class Game : MonoBehaviour
             return;
         }
 
-        stats.text = $"Janusze: {gameObjectManager.Janusze.Count} " +
-                     $"Harnasie: {gameObjectManager.Harnasie.Count} " +
-                     $"Chmiel: {gameObjectManager.Chmiele.Count} ";
-
-        coinText.text = $"{gameObjectManager.Coins}";
 
         if (chanceForEvent > Random.Range(20, 100))
         {
@@ -143,19 +157,6 @@ public class Game : MonoBehaviour
                 popup.gameObject.SetActive(false);
             }
         }
-
-        foreach (var b in eventButtons)
-        {
-            if (b.ev.Cooldown <= 0)
-            {
-                b.button.enabled = true;
-                b.buttonText.text = "";
-            }
-            else
-            {
-                b.buttonText.text = b.ev.Cooldown.ToString();
-            }
-        }
     }
 
     void ApplyEvent(EventButton b)
@@ -173,7 +174,10 @@ public class Game : MonoBehaviour
         gameObjectManager.Coins -= b.price;
         b.button.enabled = false;
         ApplyEvent(b.ev, false);
-        b.buttonText.text = b.ev.Cooldown.ToString();
+        if (b.ev.Cooldown > 0)
+        {
+            b.buttonText.text = b.ev.Cooldown.ToString();
+        }
     }
 
     void ApplyEvent(Event ev, bool showPopup)
@@ -206,5 +210,6 @@ public class Game : MonoBehaviour
     {
         gameObjectManager.Reset();
         Start();
+        popup.Close();
     }
 }

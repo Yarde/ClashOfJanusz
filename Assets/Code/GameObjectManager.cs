@@ -66,12 +66,12 @@ public class GameObjectManager : MonoBehaviour
         //}
         Coins = 10;
         
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 1; i++)
         {
             AddJanusz();
         }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             AddChmiel();
         }
@@ -126,7 +126,7 @@ public class GameObjectManager : MonoBehaviour
             _lastChmielResolve = Time.time;
         }
 
-        Debug.Log($"Janusze: {Janusze.Count} Harnasie: {Harnasie.Count} Chmiele: {Chmiele.Count}");// Waters: {Waters.Count} ");
+        Debug.Log($"Janusze: {Janusze.Count} Harnasie: {Harnasie.Count} Chmiele: {Chmiele.Count}");
         return Lost;
     }
 

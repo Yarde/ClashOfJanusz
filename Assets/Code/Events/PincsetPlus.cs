@@ -8,6 +8,7 @@ namespace Code.Events
         {
             name = "Pinćset Plus";
             description = "Kto Ci na starość szklankę wody poda?";
+            clip = Resources.Load<AudioClip>("Sounds/plus");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

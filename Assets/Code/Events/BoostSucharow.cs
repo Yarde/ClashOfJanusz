@@ -1,4 +1,6 @@
-﻿namespace Code.Events
+﻿using UnityEngine;
+
+namespace Code.Events
 {
     public class BoostSucharow : Event
     {
@@ -6,6 +8,7 @@
         {
             name = "Komplement";
             description = "Produkcja Harnasia wystrzeliła w kosmos";
+            clip = Resources.Load<AudioClip>("Sounds/pong");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -15,10 +18,6 @@
             TTL = 7;
             Cooldown = 7;
             
-            for (var i = 0; i < 5; i++)
-            {
-                gmo.AddHarnas();
-            }
             gmo.Janusze.ForEach(x => x.sucharChance = 0.01f);
         }
 

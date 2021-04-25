@@ -8,6 +8,7 @@ namespace Code.Events
         {
             name = "Pogrom Januszy";
             description = "Tydzień Somsiada, populacja Januszy zmniejsza się";
+            clip = Resources.Load<AudioClip>("Sounds/rain");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

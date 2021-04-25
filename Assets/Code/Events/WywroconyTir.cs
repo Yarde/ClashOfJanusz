@@ -8,6 +8,7 @@ namespace Code.Events
         {
             name = "Wywrocony Tir";
             description = "Żałoba narodowa, cała dostawa zmarnowana";
+            clip = Resources.Load<AudioClip>("Sounds/carCrash");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

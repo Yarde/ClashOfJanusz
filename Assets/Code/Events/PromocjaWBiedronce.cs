@@ -8,6 +8,7 @@ namespace Code.Events
         {
             name = "Promocja W Biedronce";
             description = "Ej! Grażyna! Weź 2 zgrzewki tego Harnaś na promocji";
+            clip = Resources.Load<AudioClip>("Sounds/fanfary");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

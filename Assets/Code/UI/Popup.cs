@@ -27,6 +27,7 @@ namespace UI
         public void Close()
         {
             buttonText.text = "OK";
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
                 game.ResumeGame();
@@ -36,13 +37,14 @@ namespace UI
 
         public void TryAgain()
         {
-            game.Reset();
+            SceneManager.LoadScene("Victory");
         }
 
         public void SetupPayment()
         {
             buttonText.text = t;
             description.text = d;
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => game.gameObjectManager.Coins += coins);
             coins = 0;
             t = "OK";

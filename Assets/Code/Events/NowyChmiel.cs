@@ -17,7 +17,7 @@ namespace Code.Events
             base.Apply(gameObjectManager);
 
             TTL = 1;
-            Cooldown = 1;
+            Cooldown = 0;
             
             gmo.AddChmiel();
         }

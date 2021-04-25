@@ -9,7 +9,7 @@ namespace Code.Events
         {
             name = "Nowe życie";
             description = "Pieter mój synu!";
-            clip = Resources.Load<AudioClip>("janusz");
+            clip = Resources.Load<AudioClip>("Sounds/janusz");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -17,7 +17,7 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 1;
-            Cooldown = 1;
+            Cooldown = 0;
             
             gmo.AddJanusz();
         }

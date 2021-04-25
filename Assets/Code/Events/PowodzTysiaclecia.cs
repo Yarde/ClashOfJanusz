@@ -8,7 +8,7 @@ namespace Code.Events
         {
             name = "Powodz Tysiaclecia";
             description = "Kurwa! Apokalipsa!";
-            clip = Resources.Load<AudioClip>("janusz");
+            clip = Resources.Load<AudioClip>("Sounds/rain");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
