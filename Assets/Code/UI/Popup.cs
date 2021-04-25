@@ -21,7 +21,11 @@ namespace UI
 
         private void Start()
         {
-            button.onClick.AddListener(() => gameObject.SetActive(false));
+            button.onClick.AddListener(() =>
+            {
+                gameObject.SetActive(false);
+                game.ResumeGame();
+            });
         }
 
         public void Close()

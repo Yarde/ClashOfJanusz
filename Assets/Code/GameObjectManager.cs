@@ -56,14 +56,11 @@ public class GameObjectManager : MonoBehaviour
 
     public void Init()
     {
-        audioSource.volume = 0.15f;
-        audioSource.Play();
+        if (_inited || transform.localScale.x < 1)
+        {
+            return;
+        }
         audioSource.volume = 0.6f;
-        
-        //if (_inited || transform.localScale.x < 1)
-        //{
-        //    return;
-        //}
         Coins = 10;
         
         for (int i = 0; i < 1; i++)
@@ -77,7 +74,7 @@ public class GameObjectManager : MonoBehaviour
         }
         //canvas.gameObject.SetActive(true);
 
-        //_inited = true;
+        _inited = true;
     }
 
     private Vector3 RandomPointInBoundsList(List<Transform> bounds)
@@ -170,7 +167,10 @@ public class GameObjectManager : MonoBehaviour
     public void RemoveJanusz()
     {
         var index = Random.Range(0, Janusze.Count);
+        var januszToRemove = Janusze[index];
         Janusze.RemoveAt(index);
+        Destroy(januszToRemove.gameObject);
+        
     }
     
     public void RemoveHarnas()

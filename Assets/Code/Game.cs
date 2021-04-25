@@ -31,6 +31,7 @@ public class Game : MonoBehaviour
     public List<Event> events = new List<Event>();
 
     public float timeStart;
+    public float inGameTime;
     
     void Start()
     {
@@ -58,25 +59,24 @@ public class Game : MonoBehaviour
         events.Add(new PogromJanuszy());
 
         timeStart = Time.realtimeSinceStartup;
-        gameObjectManager.Init();
     }
     
     void Update()
     {
-        
+        gameObjectManager.Init();
+        inGameTime += Time.deltaTime;
         if (Time.time >= nextUpdate)
         {
             nextUpdate = Mathf.FloorToInt(Time.time) + 1;
             GameLoop();
             
-            var time = Time.realtimeSinceStartup - timeStart;
-            timer.text = $"Czas: {GetTime(time)}";
+            timer.text = $"Czas: {GetTime(inGameTime)}";
 
             if (gameObjectManager.Janusze.Count >= 10)
             {
                 popup.gameObject.SetActive(true);
                 popup.text.text = "Wygrałeś!";
-                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(time)}";
+                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(inGameTime)}";
                 popup.buttonText.text = "Hura!";
                 popup.button.onClick.AddListener(popup.TryAgain);
                 nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
@@ -163,6 +163,7 @@ public class Game : MonoBehaviour
     {
         if (gameObjectManager.Coins < b.price)
         {
+            PauseGame();
             popup.gameObject.SetActive(true);
             popup.text.text = "Za mało kapsli!";
             popup.description.text = "Kup więcej w sklepie lub poczekaj 60 minut";
@@ -187,8 +188,8 @@ public class Game : MonoBehaviour
 
         if (showPopup)
         {
-            PauseGame();
             popup.Close();
+            PauseGame();
             popup.gameObject.SetActive(true);
             popup.text.text = ev.name;
             popup.description.text = ev.description;
