@@ -15,7 +15,7 @@ namespace Code.Events
         {
             base.Apply(gameObjectManager);
             
-            TTL = 5;
+            TTL = 1;
             Cooldown = 999;
             
             for (var i = 0; i < 2; i++)

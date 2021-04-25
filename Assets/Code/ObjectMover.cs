@@ -30,7 +30,7 @@ public class ObjectMover : MonoBehaviour
         var position = transform.position;
         var direction = destination - position;
         var currentTime = Time.time;
-        if (direction.magnitude > 0.001)
+        if (direction.magnitude < 0.01)
         {
             spriteRenderer.flipX = destination.x > position.x;
             transform.localPosition = transform.localPosition + direction.normalized * (speed * Time.deltaTime);

@@ -587,7 +587,7 @@ MonoBehaviour:
     priceText: {fileID: 799121596}
     button: {fileID: 868941894}
     buttonText: {fileID: 778494998}
-  - price: 10
+  - price: 1
     priceText: {fileID: 287335727}
     button: {fileID: 1310048592}
     buttonText: {fileID: 990136864}
@@ -595,6 +595,7 @@ MonoBehaviour:
   infoTime: 3
   chanceForEvent: 0
   timeStart: 0
+  inGameTime: 0
 --- !u!4 &297664962
 Transform:
   m_ObjectHideFlags: 0
