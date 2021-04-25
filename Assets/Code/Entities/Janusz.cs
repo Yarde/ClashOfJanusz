@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -16,6 +17,20 @@ namespace Code.Entities
 
         public float sucharTime = -1;
         public GameObject speechBubble;
+        public TMP_Text speechBubbleText;
+
+        private List<string> texts = new List<string>
+        {
+            "Piter, jestem z ciebie dumny",
+            "Ja moich czasów...",
+            "Kurła kiedyś to było",
+            "Piwo po 12 zł?!",
+            "Szczupak jest król wód",
+            "Za moich czasów...",
+            "Bo ty Pjoter nienauczony roboty jesteś",
+            "Ale panienka wyrosła, no no",
+            "Somsiad kupił nowego pasata?",
+        };
         
         public override void Setup(Vector3 position)
         {
@@ -64,6 +79,8 @@ namespace Code.Entities
             if (poziomNajebania > 60 && Random.value < sucharChance)
             {
                 sucharTime = Time.time + 1;
+                var index = Random.Range(0, texts.Count);
+                speechBubbleText.text = texts[index];
                 speechBubble.SetActive(true);
             }
         }
