@@ -30,8 +30,10 @@ public class Game : MonoBehaviour
     
     public List<Event> events = new List<Event>();
 
+    private float timeout = 240;
+    
     public float timeStart;
-    public float inGameTime;
+    public float inGameTime = 240;
     
     void Start()
     {
@@ -64,7 +66,9 @@ public class Game : MonoBehaviour
     void Update()
     {
         gameObjectManager.Init();
-        inGameTime += Time.deltaTime;
+        inGameTime -= Time.deltaTime;
+        var failure = inGameTime < 0 && Time.timeScale > 0;
+        inGameTime = Mathf.Max(inGameTime, 0);
         if (Time.time >= nextUpdate)
         {
             nextUpdate = Mathf.FloorToInt(Time.time) + 1;
@@ -76,10 +80,18 @@ public class Game : MonoBehaviour
             {
                 popup.gameObject.SetActive(true);
                 popup.text.text = "Wygrałeś!";
-                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(inGameTime)}";
+                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(timeout - inGameTime)}";
                 popup.buttonText.text = "Hura!";
                 popup.button.onClick.AddListener(popup.TryAgain);
                 nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
+            }
+
+            if (failure)
+            {
+                popup.gameObject.SetActive(true);
+                popup.text.text = "Przegrałeś :(";
+                popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(timeout)}";
+                popup.buttonText.text = "Nie wytrzymię...";
             }
         }
         
