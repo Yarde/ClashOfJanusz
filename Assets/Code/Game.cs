@@ -34,7 +34,7 @@ public class Game : MonoBehaviour
     
     public float timeStart;
     public float inGameTime = 240;
-    
+    public bool failed = false;
     void Start()
     {
         coins = 10;
@@ -65,6 +65,10 @@ public class Game : MonoBehaviour
     
     void Update()
     {
+        if (failed)
+        {
+            return;
+        }
         gameObjectManager.Init();
         inGameTime -= Time.deltaTime;
         var failure = inGameTime < 0 && Time.timeScale > 0;
@@ -88,10 +92,12 @@ public class Game : MonoBehaviour
 
             if (failure)
             {
+                failed = true;
                 popup.gameObject.SetActive(true);
                 popup.text.text = "Przegrałeś :(";
                 popup.description.text = $"Zdobyłeś {gameObjectManager.Points + gameObjectManager.Coins*3} punktów w {GetTime(timeout)}";
-                popup.buttonText.text = "Nie wytrzymię...";
+                popup.button.onClick.AddListener(popup.Failure);
+                popup.buttonText.text = "smuteczek";
             }
         }
         

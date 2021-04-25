@@ -44,6 +44,11 @@ namespace UI
             SceneManager.LoadScene("Victory");
         }
 
+        public void Failure()
+        {
+            SceneManager.LoadScene("Failure");
+        }
+
         public void SetupPayment()
         {
             buttonText.text = t;
