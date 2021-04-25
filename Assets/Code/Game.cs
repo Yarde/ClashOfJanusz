@@ -26,7 +26,7 @@ public class Game : MonoBehaviour
 
     public int chanceForEvent;
     
-    private int nextUpdate;
+    private int nextUpdate = 0;
     
     public List<Event> events = new List<Event>();
 
@@ -58,12 +58,11 @@ public class Game : MonoBehaviour
         events.Add(new PogromJanuszy());
 
         timeStart = Time.realtimeSinceStartup;
-        nextUpdate = Mathf.FloorToInt(Time.time);
+        gameObjectManager.Init();
     }
     
     void Update()
     {
-        gameObjectManager.Init();
         
         if (Time.time >= nextUpdate)
         {
@@ -83,6 +82,16 @@ public class Game : MonoBehaviour
                 nextUpdate = Mathf.FloorToInt(Time.time) + 10000;
             }
         }
+    }
+    
+    void PauseGame ()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame ()
+    {
+        Time.timeScale = 1;
     }
 
     string GetTime(float time)
@@ -130,6 +139,7 @@ public class Game : MonoBehaviour
             infoTime--;
             if (infoTime <= 0)
             {
+                ResumeGame();
                 popup.gameObject.SetActive(false);
             }
         }
@@ -173,6 +183,7 @@ public class Game : MonoBehaviour
 
         if (showPopup)
         {
+            PauseGame();
             popup.Close();
             popup.gameObject.SetActive(true);
             popup.text.text = ev.name;

@@ -1,4 +1,6 @@
-﻿namespace Code.Events
+﻿using UnityEngine;
+
+namespace Code.Events
 {
     public class PowodzTysiaclecia : Event
     {
@@ -6,6 +8,7 @@
         {
             name = "Powodz Tysiaclecia";
             description = "Kurwa! Apokalipsa!";
+            clip = Resources.Load<AudioClip>("janusz");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

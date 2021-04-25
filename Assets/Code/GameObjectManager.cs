@@ -11,6 +11,7 @@ using Vector3 = UnityEngine.Vector3;
 public class GameObjectManager : MonoBehaviour
 {
     [SerializeField] public Canvas canvas;
+    [SerializeField] public AudioSource audioSource;
     
     [SerializeField] public Janusz janusz;
     [SerializeField] public Harnas harnas;
@@ -55,10 +56,14 @@ public class GameObjectManager : MonoBehaviour
 
     public void Init()
     {
-        if (_inited || transform.localScale.x < 1)
-        {
-            return;
-        }
+        audioSource.volume = 0.15f;
+        audioSource.Play();
+        audioSource.volume = 0.6f;
+        
+        //if (_inited || transform.localScale.x < 1)
+        //{
+        //    return;
+        //}
         Coins = 10;
         
         for (int i = 0; i < 5; i++)
@@ -70,10 +75,9 @@ public class GameObjectManager : MonoBehaviour
         {
             AddChmiel();
         }
-        
-        canvas.gameObject.SetActive(true);
-        
-        _inited = true;
+        //canvas.gameObject.SetActive(true);
+
+        //_inited = true;
     }
 
     private Vector3 RandomPointInBoundsList(List<Transform> bounds)
@@ -99,10 +103,10 @@ public class GameObjectManager : MonoBehaviour
 
     public bool Resolve()
     {
-        if (!_inited)
-        {
-            return false;
-        }
+        // if (!_inited)
+        // {
+        //     return false;
+        // }
 
         foreach (var e in events)
         {

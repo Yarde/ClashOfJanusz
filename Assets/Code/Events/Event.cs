@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Events
 {
@@ -10,11 +12,14 @@ namespace Code.Events
         public int TTL;
         public int Cooldown;
 
+        public AudioClip clip;
+
         public GameObjectManager gmo;
 
         public virtual void Apply(GameObjectManager gameObjectManager)
         {
             gmo = gameObjectManager;
+            gmo.audioSource.PlayOneShot(clip);
         }
         public abstract void Remove();
 

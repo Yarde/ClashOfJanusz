@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Events
 {
@@ -8,6 +9,7 @@ namespace Code.Events
         {
             name = "Nowe życie";
             description = "Pieter mój synu!";
+            clip = Resources.Load<AudioClip>("janusz");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -15,7 +17,7 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 1;
-            Cooldown = 3;
+            Cooldown = 1;
             
             gmo.AddJanusz();
         }
