@@ -208,14 +208,20 @@ public class GameObjectManager : MonoBehaviour
                 }
             }
         }
+
+        var toRemove = new List<Suchar>();
         foreach (Suchar s in Suchary)
         {
             if (s.toDestroy)
             {
                 Destroy(s.gameObject);
                 Coins = Coins + 1;
-                Suchary.Remove(s);
+                toRemove.Add(s);
             }
+        }
+        foreach (var s in toRemove)
+        {
+            Suchary.Remove(s);
         }
     }
 }
