@@ -7,7 +7,7 @@ namespace Code.Events
         public NowaFabrykaHarnasia()
         {
             name = "Nowa Fabryka Harnasia";
-            description = "Produkcja na maksa, fabryka wytrzyma!";
+            description = "Zwiększona produkcja Harnasia, fabryka wytrzyma!\n+Harnaś na 10 sek";
             clip = Resources.Load<AudioClip>("Sounds/fanfary");
         }
         
@@ -15,8 +15,8 @@ namespace Code.Events
         {
             base.Apply(gameObjectManager);
             
-            TTL = 5;
-            Cooldown = 15;
+            TTL = 10;
+            Cooldown = 999;
             
             gmo.Chmiele.ForEach(x => x.ChanceForHarnas += Random.Range(0.1f, 0.4f));
         }

@@ -7,7 +7,7 @@ namespace Code.Events
         public PogromJanuszy()
         {
             name = "Pogrom Januszy";
-            description = "Tydzień Somsiada, populacja Januszy zmniejsza się";
+            description = "Tydzień Somsiada, populacja Januszy zmniejsza się\n-2 Januszy";
             clip = Resources.Load<AudioClip>("Sounds/rain");
         }
         
@@ -16,7 +16,7 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 5;
-            Cooldown = 15;
+            Cooldown = 999;
             
             for (var i = 0; i < 5; i++)
             {

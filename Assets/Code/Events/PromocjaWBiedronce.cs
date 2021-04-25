@@ -7,7 +7,7 @@ namespace Code.Events
         public PromocjaWBiedronce()
         {
             name = "Promocja W Biedronce";
-            description = "Ej! Grażyna! Weź 2 zgrzewki tego Harnaś na promocji";
+            description = "Ej! Grażyna! Weź 2 zgrzewki tego Harnaś na promocji\n+12 Harnasia";
             clip = Resources.Load<AudioClip>("Sounds/fanfary");
         }
         
@@ -16,7 +16,7 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 1;
-            Cooldown = 15;
+            Cooldown = 999;
 
             for (var i = 0; i < 12; i++)
             {

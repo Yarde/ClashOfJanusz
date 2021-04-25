@@ -7,7 +7,6 @@ namespace Code.Events
         public WywroconyTir()
         {
             name = "Wywrocony Tir";
-            description = "Żałoba narodowa, cała dostawa zmarnowana";
             clip = Resources.Load<AudioClip>("Sounds/carCrash");
         }
         
@@ -16,7 +15,8 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 1;
-            Cooldown = 15;
+            Cooldown = 999;
+            description = $"Żałoba narodowa, cała dostawa zmarnowana\n-{gmo.Harnasie.Count} Harnasia";
 
             for (var i = 0; i < gmo.Harnasie.Count; i++)
             {

@@ -8,7 +8,6 @@ namespace Code.Events
         public TydzienAlkoholizmu()
         {
             name = "Tydzień Alkoholizmu";
-            description = "Hehe, Grażyny nie ma w domu, pijemy!";
         }
         
         public override void Apply(GameObjectManager gameObjectManager)
@@ -16,7 +15,8 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 7;
-            Cooldown = 20;
+            Cooldown = 999;
+            description = $"Hehe, Grażyny nie ma w domu, pijemy!\n-{gmo.Harnasie.Count} Harnasia ";
             
             for (var i = 0; i < gmo.Harnasie.Count; i++)
             {

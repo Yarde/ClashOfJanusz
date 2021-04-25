@@ -48,8 +48,14 @@ namespace UI
         {
             buttonText.text = t;
             description.text = d;
+            var c = coins;
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => game.gameObjectManager.Coins += coins);
+            button.onClick.AddListener(() =>
+            {
+                game.ResumeGame();
+                gameObject.SetActive(false);
+                game.gameObjectManager.Coins += c;
+            });
             coins = 0;
             t = "OK";
             d = "Limit kupionych ofert przekroczony";

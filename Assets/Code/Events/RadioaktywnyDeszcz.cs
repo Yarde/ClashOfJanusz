@@ -7,7 +7,6 @@ namespace Code.Events
         public RadioaktywnyDeszcz()
         {
             name = "Radioaktywny Deszcz";
-            description = "Z czego teraz zrobimy Harnasia?";
             clip = Resources.Load<AudioClip>("Sounds/rain");
         }
         
@@ -16,7 +15,8 @@ namespace Code.Events
             base.Apply(gameObjectManager);
             
             TTL = 1;
-            Cooldown = 15;
+            Cooldown = 999;
+            description = $"Z czego teraz zrobimy Harnasia?\n+{gmo.Chmiele.Count/2} Chmielu";
             
             for (var i = 0; i < gmo.Chmiele.Count/2; i++)
             {

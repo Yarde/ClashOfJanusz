@@ -7,7 +7,7 @@ namespace Code.Events
         public PincsetPlus()
         {
             name = "Pinćset Plus";
-            description = "Kto Ci na starość szklankę wody poda?";
+            description = "Kto Ci na starość szklankę wody poda?\n+2 Januszy";
             clip = Resources.Load<AudioClip>("Sounds/plus");
         }
         
@@ -16,7 +16,7 @@ namespace Code.Events
             base.Apply(gameObjectManager);
 
             TTL = 1;
-            Cooldown = 15;
+            Cooldown = 999;
 
             for (var i = 0; i < 2; i++)
             {
