@@ -18,7 +18,7 @@ namespace Code.Events
             TTL = 5;
             Cooldown = 999;
             
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 2; i++)
             {
                 gmo.RemoveJanusz();
             }
