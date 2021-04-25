@@ -15,12 +15,12 @@
             TTL = 7;
             Cooldown = 20;
 
-            gmo.Janusze.ForEach(x => x.sucharChance = 0.5f);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.0f);
         }
 
         public override void Remove()
         {
-            gmo.Janusze.ForEach(x => x.sucharChance = 0);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.005f);
         }
     }
 }

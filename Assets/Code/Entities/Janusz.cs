@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Code.Entities
@@ -13,13 +14,16 @@ namespace Code.Entities
 
         public float sucharChance;
 
+        public float sucharTime = -1;
+        public GameObject speechBubble;
+        
         public override void Setup(Vector3 position)
         {
             base.Setup(position);
 
             poziomNajebania = 70;
 
-            sucharChance = 0.5f;
+            sucharChance = 0.005f;
         }
 
         public void SetDependencies(GameObjectManager _gmo)
@@ -40,8 +44,28 @@ namespace Code.Entities
 
         private void Update()
         {
-            poziomNajebania -= Time.deltaTime * 3;
+            poziomNajebania -= Time.deltaTime * 5;
+            poziomNajebania = Math.Max(0, poziomNajebania);
             drunkBar.level = poziomNajebania;
+            if (sucharTime > 0 && Time.time > sucharTime)
+            {
+                speechBubble.SetActive(false);
+                gmo.SpawnSuchar(transform);
+                sucharTime = -1;
+            }
+            else
+            {
+                CheckForSuchar();
+            }
+        }
+
+        private void CheckForSuchar()
+        {
+            if (poziomNajebania > 60 && Random.value < sucharChance)
+            {
+                sucharTime = Time.time + 1;
+                speechBubble.SetActive(true);
+            }
         }
 
         public void OnClick()

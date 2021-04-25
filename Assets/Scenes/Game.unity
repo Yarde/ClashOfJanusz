@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 297664961}
   m_Layer: 0
   m_Name: Game
-  m_TagString: Untagged
+  m_TagString: Game
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1259,75 +1259,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564768013}
   m_CullTransparentMesh: 1
---- !u!1001 &622648586
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 740010793831334491, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865957041867531429, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
-      propertyPath: m_Name
-      value: Janusz
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
 --- !u!1 &648036345
 GameObject:
   m_ObjectHideFlags: 0
@@ -6876,7 +6807,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1088614131
@@ -6958,7 +6889,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1176577700
@@ -7921,6 +7852,7 @@ MonoBehaviour:
   janusz: {fileID: 4620894662109770139, guid: 9b4e3afbbe17d6a939c3e1117e21f95c, type: 3}
   harnas: {fileID: 7320588820167075078, guid: 85d5f0586b423304abc7d9dc7c4c2a2a, type: 3}
   chmiel: {fileID: 8272065918544635263, guid: d18032a69fb0b704abc2511d80415127, type: 3}
+  suchar: {fileID: 2176111972318073978, guid: 93001ccdeb489195bbb595be142bf969, type: 3}
   woda: {fileID: 443414320561617770, guid: b9618e75eea12b341bb9c8bd168535d9, type: 3}
   januszSpawner: {fileID: 1875126052}
   januszWalkYard: {fileID: 1692326495}
@@ -7930,9 +7862,11 @@ MonoBehaviour:
   - {fileID: 1802242724}
   - {fileID: 1695309763}
   harnasSpawner: {fileID: 1088614131}
+  camera: {fileID: 963194227}
   Janusze: []
   Harnasie: []
   Chmiele: []
+  Suchary: []
 --- !u!4 &1557079367
 Transform:
   m_ObjectHideFlags: 0
@@ -8242,7 +8176,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1618206262
@@ -8502,7 +8436,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1692326495
@@ -8584,7 +8518,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1695309763
@@ -9047,7 +8981,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1802242724
@@ -9129,7 +9063,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1875126052

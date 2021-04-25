@@ -13,7 +13,7 @@ public class DrunkBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (level < 75)
+        if (level < 60)
         {
             bar.color = Color.red;
         }

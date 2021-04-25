@@ -19,12 +19,12 @@
             {
                 gmo.AddHarnas();
             }
-            gmo.Janusze.ForEach(x => x.sucharChance = 0.8f);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.01f);
         }
 
         public override void Remove()
         {
-            gmo.Janusze.ForEach(x => x.sucharChance = 0.5f);
+            gmo.Janusze.ForEach(x => x.sucharChance = 0.005f);
         }
     }
 }

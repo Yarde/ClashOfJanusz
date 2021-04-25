@@ -15,6 +15,7 @@ public class GameObjectManager : MonoBehaviour
     [SerializeField] public Janusz janusz;
     [SerializeField] public Harnas harnas;
     [SerializeField] public Chmiel chmiel;
+    [SerializeField] public Suchar suchar;
     [SerializeField] public Water woda;
     [SerializeField] public Transform januszSpawner;
     [SerializeField] public Transform januszWalkYard;
@@ -25,12 +26,15 @@ public class GameObjectManager : MonoBehaviour
     public List<Janusz> Janusze = new List<Janusz>();
     public List<Harnas> Harnasie = new List<Harnas>();
     public List<Chmiel> Chmiele = new List<Chmiel>();
+
+    public List<Suchar> Suchary = new List<Suchar>();
     //public List<Water> Waters = new List<Water>();
 
     public List<Event> events = new List<Event>();
     private Boolean _inited = false;
     public bool Lost => Janusze.Count == 0 && Harnasie.Count == 0 && Chmiele.Count == 0;
     public int Points => Janusze.Count * 3 + Harnasie.Count * 2 + Chmiele.Count;
+    private float _lastChmielResolve = 0;
 
     public int Coins { get; set; }
 
@@ -41,10 +45,12 @@ public class GameObjectManager : MonoBehaviour
         Chmiele.ForEach(x => Destroy(x.gameObject));
         Harnasie.ForEach(x => Destroy(x.gameObject));
         Janusze.ForEach(x => Destroy(x.gameObject));
+        Suchary.ForEach(x => Destroy(x.gameObject));
         
         Janusze.Clear();
         Harnasie.Clear();
         Chmiele.Clear();
+        Suchary.Clear();
     }
 
     public void Init()
@@ -104,12 +110,16 @@ public class GameObjectManager : MonoBehaviour
         }
         events.RemoveAll(s => s.TTL <= 0 && s.Cooldown <= 0);
 
-        foreach (var p in Chmiele)
+        if (_lastChmielResolve + 5.0 < Time.time)
         {
-            if (Random.Range(0.0f, 1.0f) > p.ChanceForHarnas)
+            foreach (var p in Chmiele)
             {
-                AddHarnas();
+                if (Random.Range(0.0f, 1.0f) > p.ChanceForHarnas)
+                {
+                    AddHarnas();
+                }
             }
+            _lastChmielResolve = Time.time;
         }
 
         Debug.Log($"Janusze: {Janusze.Count} Harnasie: {Harnasie.Count} Chmiele: {Chmiele.Count}");// Waters: {Waters.Count} ");
@@ -122,6 +132,14 @@ public class GameObjectManager : MonoBehaviour
         c.Setup(RandomPointInBounds(januszSpawner));
         c.SetDependencies(this);
         Janusze.Add(c);
+    }
+
+    public void SpawnSuchar(Transform trans)
+    {
+        var s = Instantiate(suchar, transform);
+        var random = Random.insideUnitCircle;
+        s.gameObject.transform.position = trans.position + new Vector3(random.x, 0, random.y);
+        Suchary.Add(s);
     }
 
     public void AddHarnas()
@@ -188,6 +206,15 @@ public class GameObjectManager : MonoBehaviour
                 {
                     janusz.OnClick();
                 }
+            }
+        }
+        foreach (Suchar s in Suchary)
+        {
+            if (s.toDestroy)
+            {
+                Destroy(s.gameObject);
+                Coins = Coins + 1;
+                Suchary.Remove(s);
             }
         }
     }
