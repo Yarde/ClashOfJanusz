@@ -16,6 +16,7 @@
             Cooldown = 999;
 
             gmo.Janusze.ForEach(x => x.sucharChance = 0.0f);
+            gmo.Janusze.ForEach(x => x.poziomNajebania = 0);
         }
 
         public override void Remove()

@@ -8,7 +8,7 @@ namespace Code.Events
         {
             name = "Nowy Chmiel";
             description = "Janusze siedzą w domach, rośliny ożywają";
-            clip = Resources.Load<AudioClip>("Sound/pong");
+            clip = Resources.Load<AudioClip>("Sounds/pong");
         }
         
         public override void Apply(GameObjectManager gameObjectManager)

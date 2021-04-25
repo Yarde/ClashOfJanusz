@@ -24,6 +24,7 @@ namespace Code.Events
             }
             
             gmo.Chmiele.ForEach(x => x.ChanceForHarnas += Random.Range(0.3f, 0.5f));
+            gmo.Janusze.ForEach(x => x.poziomNajebania = 100);
         }
 
         public override void Remove()
